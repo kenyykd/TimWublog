@@ -8,7 +8,7 @@
             <TextFlip text="Kenyykd" class="highlight-text" />
           </h1>
 
-          <p class="hero-tags">#kenyykd #Frontend #坤郁</p>
+          <p class="hero-tags">#Tim Wu #Frontend #坤郁</p>
           <div class="hero-description">
             <TextGenerateEffect
               text="Welcome to my blog, feel free to explore and discover amazing content!"
@@ -58,7 +58,7 @@ import SpotifyPlaylist from '@/components/SpotifyPlaylist.vue'
 const companies = [
   {
     name: 'About Me',
-    description: 'You can call me  kenyykd, Kunyu or 坤郁, living in Taiwan, Taipei.',
+    description: 'You can call me  Tim Wu, Kunyu or 坤郁, living in Taiwan, Taipei.',
   },
   {
     name: 'Tech Stack',
