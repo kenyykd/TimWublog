@@ -14,13 +14,13 @@
             <div class="article-image">
               <div class="placeholder-image">
                 <div class="terminal-window">
-                  <img src="/images/blogs/kenyydblog.png" alt="kenyykd blog preview" />
+                  <img src="/images/blogs/kenyydblog.png" alt="Tim Wu 網站預覽" />
                 </div>
               </div>
             </div>
             <div class="article-content">
               <div class="article-header">
-                <h2 class="article-title">kenyykd's Blog</h2>
+                <h2 class="article-title">Tim Wu's Blog</h2>
                 <div class="article-meta">
                   <span class="article-date">2025-09-30</span>
                   <span class="article-category">Vue</span>

@@ -5,7 +5,7 @@
         <div class="hero-content">
           <h1 class="hero-title">
             Hi, I'm
-            <TextFlip text="Kenyykd" class="highlight-text" />
+            <TextFlip text="Tim Wu" class="highlight-text" />
           </h1>
 
           <p class="hero-tags">#Tim Wu #Frontend #坤郁</p>
@@ -25,7 +25,7 @@
 
     <div class="featured-section">
       <div class="container">
-        <h2 class="section-title">Featured Articles</h2>
+        <h2 class="section-title">About</h2>
         <div class="cards-grid">
           <div v-for="company in companies" :key="company.name" class="hover-effect-card">
             <div class="card-content">

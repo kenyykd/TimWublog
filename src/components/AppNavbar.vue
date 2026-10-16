@@ -2,7 +2,7 @@
   <nav class="navbar" :class="{ scrolled: isScrolled }">
     <div class="navbar-container">
       <div class="navbar-brand">
-        <router-link to="/" class="brand-link">MyBlog</router-link>
+        <router-link to="/" class="brand-link">Tim Wu</router-link>
       </div>
 
       <div ref="navMenuRef" class="navbar-menu" @mouseleave="resetHover">

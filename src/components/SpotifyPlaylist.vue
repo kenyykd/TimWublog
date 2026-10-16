@@ -8,7 +8,7 @@
           />
         </svg>
       </div>
-      <span class="playlist-title">Recent Tracks</span>
+      <span class="playlist-title">On Repeat</span>
     </div>
 
     <div class="song-list">
