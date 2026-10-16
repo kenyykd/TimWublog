@@ -23,8 +23,9 @@
             avatar: authStore.user?.avatar || undefined,
           }"
           @logout="handleLogout"
-          @message-sent="handleMessageSent"
         />
+
+        <p v-if="authStore.isAdmin && messagesError" class="list-error">{{ messagesError }}</p>
 
         <!-- 留言列表 -->
         <div class="messages-list">
@@ -42,9 +43,22 @@
               </div>
 
               <div class="message-info">
-                <div class="message-header">
+                <div class="message-meta">
                   <span class="message-author">{{ message.userName }}</span>
                   <span class="message-date">{{ formatMessageDate(message.createdAt) }}</span>
+
+                  <!-- 管理員刪除（點兩次確認） -->
+                  <span v-if="authStore.isAdmin" class="admin-actions">
+                    <template v-if="pendingDeleteId === message.id">
+                      <button class="delete-btn confirm" @click="confirmDelete(message.id)">
+                        確定刪除
+                      </button>
+                      <button class="delete-btn" @click="pendingDeleteId = null">取消</button>
+                    </template>
+                    <button v-else class="delete-btn" @click="pendingDeleteId = message.id">
+                      刪除
+                    </button>
+                  </span>
                 </div>
                 <div class="message-content-text">{{ message.content }}</div>
               </div>
@@ -53,11 +67,7 @@
         </div>
 
         <!-- 登入模態框 -->
-        <LoginModal
-          :is-visible="showLoginModal"
-          @close="closeLogin"
-          @login-success="handleLoginSuccess"
-        />
+        <LoginModal :is-visible="showLoginModal" @close="closeLogin" />
       </div>
     </div>
   </div>
@@ -78,11 +88,16 @@ const showLoginModal = ref(false)
 const {
   messages: firestoreMessages,
   subscribeToMessages,
+  deleteMessage,
   formatMessageDate,
   isLoading: messagesLoading,
+  error: messagesError,
 } = useMessages()
 
 let unsubscribe: (() => void) | null = null
+
+// 等待確認刪除的留言 ID
+const pendingDeleteId = ref<string | null>(null)
 
 // 顯示登入模態框
 const showLogin = () => {
@@ -94,27 +109,22 @@ const closeLogin = () => {
   showLoginModal.value = false
 }
 
-// 處理登入成功
-const handleLoginSuccess = (user: any) => {
-  console.log('用戶登入成功:', user)
-  // 用戶狀態已經透過 Firebase 自動管理
-}
-
 // 處理登出
 const handleLogout = async () => {
   try {
     await authStore.logout()
-    console.log('用戶已登出')
   } catch (error) {
     console.error('登出失敗:', error)
   }
 }
 
-// 處理新留言
-const handleMessageSent = (result: any) => {
-  if (result.success) {
-    console.log('留言發送成功')
-    // 實時監聽會自動更新列表，這裡不需要手動添加
+// 管理員刪除留言
+const confirmDelete = async (id: string) => {
+  pendingDeleteId.value = null
+  try {
+    await deleteMessage(id)
+  } catch {
+    // 錯誤訊息已由 useMessages 設定並顯示在列表上方
   }
 }
 
@@ -260,11 +270,42 @@ onUnmounted(() => {
   min-width: 0;
 }
 
-.message-header {
+.message-meta {
   display: flex;
   align-items: baseline;
   gap: 0.75rem;
   margin-bottom: 0.25rem;
+}
+
+.admin-actions {
+  margin-left: auto;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.delete-btn {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 0.25rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.75rem;
+  padding: 0.125rem 0.5rem;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.delete-btn.confirm {
+  border-color: rgba(248, 113, 113, 0.6);
+  color: #f87171;
+}
+
+.list-error {
+  color: #f87171;
+  font-size: 0.8125rem;
+  margin-bottom: 1rem;
 }
 
 .message-author {

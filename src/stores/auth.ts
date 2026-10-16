@@ -2,6 +2,8 @@ import { computed } from 'vue'
 import { defineStore } from 'pinia'
 import { useAuth } from '@/composables/useAuth'
 
+const ADMIN_UID = import.meta.env.VITE_ADMIN_UID
+
 export interface User {
   id: string
   email: string | null
@@ -15,6 +17,11 @@ export const useAuthStore = defineStore('auth', () => {
   // 使用 Firebase Auth composable
   const firebaseAuth = useAuth()
 
+  // 計算屬性
+  const isAuthenticated = computed(() => firebaseAuth.isAuthenticated.value)
+  // 只用來決定介面顯示；真正的權限由 firestore.rules 把關
+  const isAdmin = computed(() => !!ADMIN_UID && firebaseAuth.user.value?.uid === ADMIN_UID)
+
   // 狀態 (使用 Firebase 的狀態)
   const user = computed<User | null>(() =>
     firebaseAuth.user.value
@@ -23,7 +30,7 @@ export const useAuthStore = defineStore('auth', () => {
           email: firebaseAuth.user.value.email,
           displayName: firebaseAuth.user.value.displayName,
           avatar: firebaseAuth.user.value.photoURL,
-          role: 'user',
+          role: isAdmin.value ? 'admin' : 'user',
           provider: 'firebase',
         }
       : null,
@@ -31,10 +38,6 @@ export const useAuthStore = defineStore('auth', () => {
 
   const isLoading = computed(() => firebaseAuth.isLoading.value)
   const error = computed(() => firebaseAuth.error.value)
-
-  // 計算屬性
-  const isAuthenticated = computed(() => firebaseAuth.isAuthenticated.value)
-  const isAdmin = computed(() => false)
 
   return {
     // 狀態

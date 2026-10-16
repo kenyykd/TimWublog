@@ -22,8 +22,8 @@
       </div>
 
       <!-- 標題 -->
-      <h2 class="modal-title">登錄</h2>
-      <p class="modal-subtitle">繼續使用 cali.so</p>
+      <h2 class="modal-title">登入</h2>
+      <p class="modal-subtitle">登入後即可留言</p>
 
       <!-- 第三方登入選項 -->
       <div class="auth-options">
@@ -33,7 +33,7 @@
               d="M12 0C5.374 0 0 5.373 0 12 0 17.302 3.438 21.8 8.207 23.387c.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.300 24 12c0-6.627-5.373-12-12-12z"
             />
           </svg>
-          使用 GitHub 登錄
+          使用 GitHub 登入
         </button>
 
         <button @click="loginWithGoogle" class="auth-btn google-btn">
@@ -55,7 +55,7 @@
               d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
             />
           </svg>
-          使用 Google 登錄
+          使用 Google 登入
         </button>
       </div>
 
@@ -68,7 +68,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { watch } from 'vue'
 import { useAuth } from '@/composables/useAuth'
 
 interface Props {
@@ -77,7 +77,6 @@ interface Props {
 
 interface Emits {
   (e: 'close'): void
-  (e: 'login-success', user: any): void
 }
 
 const props = defineProps<Props>()
@@ -86,7 +85,6 @@ const emit = defineEmits<Emits>()
 const {
   loginWithGoogle: firebaseLoginWithGoogle,
   loginWithGithub: firebaseLoginWithGithub,
-  isLoading,
   error,
   clearError,
 } = useAuth()
@@ -106,45 +104,18 @@ const closeModal = () => {
   emit('close')
 }
 
-// GitHub 登入
-const loginWithGithub = async () => {
+// 登入成功就關閉；失敗時錯誤訊息已由 composable 設定並顯示在畫面上
+const login = async (provider: () => Promise<unknown>) => {
   try {
-    const user = await firebaseLoginWithGithub()
-    if (user) {
-      emit('login-success', {
-        id: user.uid,
-        name: user.displayName || 'GitHub User',
-        email: user.email,
-        avatar: user.photoURL || `https://i.pravatar.cc/40?u=${user.uid}`,
-        provider: 'github',
-      })
-      closeModal()
-    }
-  } catch (error) {
+    await provider()
+    closeModal()
+  } catch {
     // 錯誤已在 composable 中處理
-    console.error('GitHub login error:', error)
   }
 }
 
-// Google 登入
-const loginWithGoogle = async () => {
-  try {
-    const user = await firebaseLoginWithGoogle()
-    if (user) {
-      emit('login-success', {
-        id: user.uid,
-        name: user.displayName || 'Google User',
-        email: user.email,
-        avatar: user.photoURL || `https://i.pravatar.cc/40?u=${user.uid}`,
-        provider: 'google',
-      })
-      closeModal()
-    }
-  } catch (error) {
-    // 錯誤已在 composable 中處理
-    console.error('Google login error:', error)
-  }
-}
+const loginWithGithub = () => login(firebaseLoginWithGithub)
+const loginWithGoogle = () => login(firebaseLoginWithGoogle)
 </script>
 
 <style scoped>

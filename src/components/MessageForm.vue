@@ -19,11 +19,13 @@
           class="message-input"
           placeholder="寫下您的留言..."
           rows="3"
-          maxlength="500"
+          :maxlength="MAX_MESSAGE_LENGTH"
           required
         ></textarea>
-        <div class="char-count">{{ messageContent.length }}/500</div>
+        <div class="char-count">{{ messageContent.length }}/{{ MAX_MESSAGE_LENGTH }}</div>
       </div>
+
+      <p v-if="error" class="error-text">{{ error }}</p>
 
       <div class="form-actions">
         <button type="submit" class="submit-btn" :disabled="isSubmitting || !messageContent.trim()">
@@ -37,7 +39,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useMessages } from '@/composables/useMessages'
+import { useMessages, MAX_MESSAGE_LENGTH } from '@/composables/useMessages'
 
 interface Props {
   user: {
@@ -50,43 +52,33 @@ interface Props {
 
 interface Emits {
   (e: 'logout'): void
-  (e: 'message-sent', message: any): void
 }
 
 const props = defineProps<Props>()
-const emit = defineEmits<Emits>()
+defineEmits<Emits>()
 
-const { addMessage, isLoading: isSubmittingMessage, error } = useMessages()
+const { addMessage, error } = useMessages()
 
 const messageContent = ref('')
 const isSubmitting = ref(false)
 
 const submitMessage = async () => {
-  if (!messageContent.value.trim()) return
+  const content = messageContent.value.trim()
+  if (!content) return
 
   isSubmitting.value = true
 
   try {
-    // 保存到 Firestore
+    // 保存到 Firestore（Firestore 不接受 undefined 欄位，所以沒有頭像就不帶）
     await addMessage({
       userId: props.user.id,
       userName: props.user.name || props.user.email?.split('@')[0] || 'User',
-      userEmail: props.user.email,
-      userAvatar: props.user.avatar,
-      content: messageContent.value.trim(),
+      ...(props.user.avatar ? { userAvatar: props.user.avatar } : {}),
+      content,
     })
-
-    // 通知父組件留言已發送（可選，因為實時監聽會自動更新）
-    emit('message-sent', {
-      content: messageContent.value.trim(),
-      success: true,
-    })
-
     messageContent.value = '' // 清空輸入框
-    console.log('留言發送成功')
-  } catch (error) {
-    console.error('發送留言失敗:', error)
-    // 這裡可以顯示錯誤提示給用戶
+  } catch {
+    // 錯誤訊息已由 useMessages 設定並顯示在表單上
   } finally {
     isSubmitting.value = false
   }
@@ -191,6 +183,12 @@ const submitMessage = async () => {
   padding: 0;
   pointer-events: none;
   z-index: 1;
+}
+
+.error-text {
+  color: #f87171;
+  font-size: 0.8125rem;
+  margin-bottom: 0.75rem;
 }
 
 .form-actions {

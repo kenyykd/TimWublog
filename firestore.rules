@@ -1,0 +1,35 @@
+rules_version = '2';
+
+// 部署方式：Firebase Console → Firestore Database → 規則，貼上本檔內容後按「發布」
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // 管理員的 Firebase Auth UID（與 .env 的 VITE_ADMIN_UID 相同）
+    function isAdmin() {
+      return request.auth != null && request.auth.uid == 'REPLACE_WITH_ADMIN_UID';
+    }
+
+    match /messages/{messageId} {
+      allow read: if true;
+
+      // 只能以自己的身分留言，欄位與長度受限，時間必須是伺服器時間
+      allow create: if request.auth != null
+        && request.resource.data.keys().hasOnly(['userId', 'userName', 'userAvatar', 'content', 'createdAt'])
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.userName is string
+        && request.resource.data.userName.size() <= 100
+        && request.resource.data.content is string
+        && request.resource.data.content.size() > 0
+        && request.resource.data.content.size() <= 500
+        && request.resource.data.createdAt == request.time;
+
+      allow update: if false;
+      allow delete: if isAdmin();
+    }
+
+    // 其他集合一律拒絕
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

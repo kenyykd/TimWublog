@@ -14,11 +14,11 @@ const firebaseConfig = {
 
 // 檢查必要的環境變數是否存在
 if (!firebaseConfig.apiKey) {
-  console.error('❌ Firebase 配置錯誤：請檢查 .env.local 文件中的 VITE_FIREBASE_API_KEY')
+  console.error('❌ Firebase 配置錯誤：請檢查 .env 檔中的 VITE_FIREBASE_API_KEY')
 }
 
 if (!firebaseConfig.projectId) {
-  console.error('❌ Firebase 配置錯誤：請檢查 .env.local 文件中的 VITE_FIREBASE_PROJECT_ID')
+  console.error('❌ Firebase 配置錯誤：請檢查 .env 檔中的 VITE_FIREBASE_PROJECT_ID')
 }
 
 // 初始化 Firebase
