@@ -16,66 +16,56 @@
 
 </div>
 
-## 頁面
+## 技術棧
 
-| 路徑       | 內容                                            |
-| ---------- | ----------------------------------------------- |
-| `/`        | 自我介紹、技術棧、喜歡的歌                      |
-| `/blog`    | 文章（目前僅一篇展示卡片）                      |
-| `/project` | 作品集，點擊卡片開啟 Demo 或 GitHub             |
-| `/message` | 留言板，以 Google / GitHub 登入後留言，即時同步 |
+| 分類 | 技術                                                    |
+| ---- | ------------------------------------------------------- |
+| 前端 | Vue 3（Composition API + `<script setup>`）、TypeScript |
+| 建置 | Vite                                                    |
+| 路由 | Vue Router（HTML5 History 模式）                        |
+| 狀態 | Pinia + Composables                                     |
+| 後端 | Firebase Authentication、Cloud Firestore                |
+| 部署 | Vercel                                                  |
+| 樣式 | 原生 CSS，無 UI 框架                                    |
 
-## 技術
+## 技術重點
 
-- **前端**：Vue 3（Composition API）、TypeScript、Vite、Vue Router、Pinia，手寫 CSS
-- **後端服務**：Firebase Authentication、Cloud Firestore
-- **部署**：Vercel，push `main` 後自動上線
+### 前後端分離，無自建伺服器
 
-## 開始使用
+整個網站是純前端 SPA，資料與登入都交給 Firebase。前端直接透過 Firebase SDK 存取 Firestore，權限由 Firestore Security Rules 在雲端把關，因此不需要另外架設 API 伺服器。
 
-需要 Node.js `20.19+` 或 `22.12+`。
+### 第三方登入
 
-```bash
-npm install
-npm run dev       # 開發伺服器
-npm run build     # 型別檢查 + 建置
-npm run lint      # ESLint
-npm run format    # Prettier
-```
+使用 Firebase Authentication 的 `signInWithPopup` 支援 Google 與 GitHub OAuth。登入狀態由 `onAuthStateChanged` 監聽，在 App 啟動時註冊一次，並存在模組層級的 `ref` 中，讓所有元件共用同一份使用者狀態。
 
-### 環境變數
+### 即時留言
 
-在 `.env` 設定：
+留言板以 Firestore 的 `onSnapshot` 訂閱留言集合，任何人新增或刪除留言，所有開著頁面的使用者都會即時看到更新。新增留言時使用 `serverTimestamp()`，以伺服器時間排序，避免使用者電腦時間不準造成順序錯亂。
 
-| 變數              | 說明                                            |
-| ----------------- | ----------------------------------------------- |
-| `VITE_FIREBASE_*` | Firebase Web 設定（屬公開資訊，安全由規則把關） |
-| `VITE_ADMIN_UID`  | 管理員的 Firebase Auth UID，可刪除留言          |
+### 狀態管理：Composables + Pinia
+
+- `useAuth`、`useMessages` 這兩個 composable 封裝 Firebase 操作，狀態放在模組層級，多個元件呼叫時拿到的是同一份資料
+- Pinia `auth` store 在 composable 之上提供整理過的使用者資料與管理員判斷
+
+### SPA 路由與部署
+
+Vue Router 使用 History 模式，網址沒有 `#`。由於直接開啟 `/blog` 這類路徑時，Vercel 找不到對應的檔案會回傳 404，因此用 `vercel.json` 把所有路徑導回 `index.html`，交給前端路由處理。push 到 `main` 後 Vercel 會自動建置並部署。
 
 ## 專案結構
 
 ```
 src/
-├── components/    元件（AppNavbar、LoginModal、MessageForm、文字動畫）
-├── composables/   useAuth 登入狀態、useMessages 留言讀寫
+├── components/    共用元件（導覽列、登入視窗、留言表單、文字動畫）
+├── composables/   useAuth、useMessages
 ├── config/        Firebase 初始化
-├── router/        路由
-├── stores/        Pinia auth store
-└── views/         Home、Blog、Project、Message 四個頁面
-
-docs/              翻修紀錄與截圖
-firestore.rules    Firestore 安全規則
-vercel.json        SPA 路由設定
+├── router/        路由設定
+├── stores/        Pinia store
+└── views/         頁面
 ```
 
-## Firestore 安全規則
+## 本機開發
 
-規則位於 [`firestore.rules`](firestore.rules)，修改後至 **Firebase Console → Firestore Database → 規則** 貼上並發布。
-
-- 所有人可讀取留言
-- 登入者只能以自己的身分留言，內容 1–500 字
-- 留言不可修改，僅管理員可刪除
-
-## 開發紀錄
-
-翻修內容與待辦事項見 [`docs/翻修紀錄.md`](docs/翻修紀錄.md)。
+```bash
+npm install
+npm run dev
+```
