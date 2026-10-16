@@ -27,7 +27,7 @@
       <div class="container">
         <h2 class="section-title">Featured Articles</h2>
         <div class="cards-grid">
-          <div v-for="(company, index) in companies" :key="company.name" class="hover-effect-card">
+          <div v-for="company in companies" :key="company.name" class="hover-effect-card">
             <div class="card-content">
               <div class="card-header">
                 <h3 class="card-title" v-if="company.name !== 'Spotify'">{{ company.name }}</h3>
@@ -47,13 +47,7 @@
 import TextFlip from '@/components/TextFlip.vue'
 import TextGenerateEffect from '@/components/TextGenerateEffect.vue'
 import TechStackIcons from '@/components/TechStackIcons.vue'
-import SpotifyIcon from '@/components/SpotifyIcon.vue'
 import SpotifyPlaylist from '@/components/SpotifyPlaylist.vue'
-
-// 不再需要這些變數和函數
-// const blogStore = useBlogStore()
-// const isMarqueePaused = ref(false)
-// const marqueeContent = ref<HTMLElement>()
 
 const companies = [
   {
@@ -68,8 +62,6 @@ const companies = [
     name: 'Spotify',
   },
 ]
-
-// 不再需要 onMounted 來獲取文章數據
 </script>
 
 <script lang="ts">

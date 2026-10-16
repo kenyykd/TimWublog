@@ -70,14 +70,6 @@ import { useMessages } from '@/composables/useMessages'
 import LoginModal from '@/components/LoginModal.vue'
 import MessageForm from '@/components/MessageForm.vue'
 
-interface Message {
-  id: number
-  name: string
-  avatar: string
-  content: string
-  date: string
-}
-
 // 登入狀態
 const authStore = useAuthStore()
 const showLoginModal = ref(false)

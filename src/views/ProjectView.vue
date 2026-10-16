@@ -12,7 +12,7 @@
         <div class="featured-projects">
           <div class="projects-grid">
             <div
-              v-for="(project, index) in featuredProjects"
+              v-for="project in featuredProjects"
               :key="project.id"
               class="project-card"
               @click="handleProjectClick(project)"
@@ -54,7 +54,7 @@ const featuredProjects: Project[] = [
     description: '使用純html和css實現的instagram登入頁面',
     technologies: ['HTML', 'CSS'],
     url: 'https://ig-clone-pr.netlify.app/',
-    githubUrl:'https://github.com/kenyykd/instagram-login-clone'
+    githubUrl: 'https://github.com/kenyykd/instagram-login-clone',
   },
   {
     id: 2,
@@ -62,7 +62,7 @@ const featuredProjects: Project[] = [
     description: '讓喜歡玩具的人能更快找到喜歡的玩具，是一個大型的團體專案',
     technologies: ['Vue', 'Tailwind CSS', 'nodejs', 'express'],
     url: 'https://github.com/wanpai-app/frontend',
-    githubUrl:'https://github.com/wanpai-app/frontend'
+    githubUrl: 'https://github.com/wanpai-app/frontend',
   },
   {
     id: 3,
@@ -70,7 +70,7 @@ const featuredProjects: Project[] = [
     description: '模仿inline訂餐系統的頁面',
     technologies: ['HTML', 'CSS'],
     url: 'https://inline-net-clone.netlify.app/',
-    githubUrl:'https://github.com/kenyykd/inline-net-clone'
+    githubUrl: 'https://github.com/kenyykd/inline-net-clone',
   },
   {
     id: 4,
