@@ -57,7 +57,8 @@ Vue Router 使用 History 模式，網址沒有 `#`。由於直接開啟 `/blog`
 src/
 ├── components/    共用元件（導覽列、登入視窗、留言表單、文字動畫）
 ├── composables/   useAuth、useMessages
-├── config/        Firebase 初始化
+├── config/        Firebase 初始化（Firestore 獨立，只有留言板載入）
+├── posts/         Blog 文章（Markdown）
 ├── router/        路由設定
 ├── stores/        Pinia store
 └── views/         頁面
