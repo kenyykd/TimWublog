@@ -3,7 +3,7 @@ title: 這個網站是怎麼做的
 date: 2026-10-17
 category: Vue
 description: 用 Vue 3、Firebase 與 Vercel 打造一個沒有自建伺服器的個人網站，順便記錄一次大翻修。
-cover: /images/blogs/kenyydblog.png
+cover: /images/blogs/timwu-blog.png
 ---
 
 這個網站是我的個人頁面，包含自我介紹、作品集、留言板，以及你正在看的這個 Blog。這篇文章記錄它用了哪些技術、為什麼這樣設計，還有最近一次翻修改了什麼。
