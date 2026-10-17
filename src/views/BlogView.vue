@@ -147,62 +147,6 @@ import { posts } from '@/posts'
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
-.terminal-header {
-  background: #3c3c3c;
-  padding: 0.5rem;
-  border-radius: 0.5rem 0.5rem 0 0;
-  display: flex;
-  align-items: center;
-}
-
-.terminal-buttons {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.btn {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-}
-
-.btn.close {
-  background: #ff5f57;
-}
-
-.btn.minimize {
-  background: #ffbd2e;
-}
-
-.btn.maximize {
-  background: #28ca42;
-}
-
-.terminal-content {
-  padding: 1rem;
-  font-family: 'Courier New', monospace;
-  font-size: 0.8rem;
-  line-height: 1.4;
-}
-
-.terminal-line {
-  margin-bottom: 0.5rem;
-  color: #e0e0e0;
-}
-
-.prompt {
-  color: #4ade80;
-  margin-right: 0.5rem;
-}
-
-.command {
-  color: #60a5fa;
-}
-
-.text {
-  color: #e0e0e0;
-}
-
 .article-content {
   flex: 1;
   padding: 2rem;
