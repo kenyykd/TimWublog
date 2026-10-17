@@ -11,11 +11,13 @@
         <!-- Featured Projects -->
         <div class="featured-projects">
           <div class="projects-grid">
-            <div
+            <a
               v-for="project in featuredProjects"
               :key="project.id"
+              :href="project.url || project.githubUrl"
+              target="_blank"
+              rel="noopener noreferrer"
               class="project-card"
-              @click="handleProjectClick(project)"
             >
               <div class="card-content">
                 <div class="card-header">
@@ -28,7 +30,7 @@
                   </span>
                 </div>
               </div>
-            </div>
+            </a>
           </div>
         </div>
       </div>
@@ -83,26 +85,12 @@ const featuredProjects: Project[] = [
   {
     id: 5,
     name: '打磚遊戲',
-    description: 'canvas和metter.js，2d物理引擎實現的打磚遊戲',
+    description: 'canvas和matter.js，2d物理引擎實現的打磚遊戲',
     technologies: ['next.js'],
     url: 'https://hit-break.netlify.app/',
     githubUrl: 'https://github.com/kenyykd/hit-brick',
   },
 ]
-
-// 點擊專案卡片的處理函數
-const handleProjectClick = (project: Project) => {
-  if (project.url && project.url !== '#') {
-    // 如果有有效的 URL，在新標籤頁中打開
-    window.open(project.url, '_blank')
-  } else if (project.githubUrl && project.githubUrl !== '#') {
-    // 如果沒有 demo URL 但有 GitHub URL，打開 GitHub
-    window.open(project.githubUrl, '_blank')
-  } else {
-    // 如果都沒有，可以顯示一個提示或者進行其他操作
-    console.log(`點擊了專案：${project.name}`)
-  }
-}
 </script>
 
 <style scoped>
