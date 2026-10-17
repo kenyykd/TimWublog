@@ -25,7 +25,6 @@
 
     <div class="featured-section">
       <div class="container">
-        <h2 class="section-title">About</h2>
         <div class="cards-grid">
           <div v-for="company in companies" :key="company.name" class="hover-effect-card">
             <div class="card-content">
@@ -71,15 +70,22 @@ export default {
 </script>
 
 <style scoped>
+/* 桌機：Hero 與三張卡片排在同一個畫面（上方留給浮動 navbar） */
 .home-view {
-  padding-top: 0; /* navbar 現在浮動，不需要額外 padding */
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(2rem, 7vh, 4.5rem);
+  padding: 6rem 0 2.5rem;
+  background: #0a0a0a;
 }
 
 .hero-section {
   background: #0a0a0a;
   color: white;
   padding: 0;
-  min-height: 75vh;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -213,10 +219,9 @@ export default {
 }
 
 .featured-section {
-  padding: 2rem 0 4rem 0;
+  padding: 0;
   background: #0a0a0a;
   position: relative;
-  overflow: hidden;
 }
 
 .featured-section::before {
@@ -228,16 +233,6 @@ export default {
   bottom: 0;
   background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.02) 0%, transparent 50%);
   pointer-events: none;
-}
-
-.section-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 3rem;
-  color: rgba(255, 255, 255, 0.9);
-  position: relative;
-  z-index: 1;
 }
 
 /* 卡片網格布局 */
@@ -330,9 +325,32 @@ export default {
 }
 
 /* 響應式設計 */
+
+/* 高度較矮的桌機／筆電（例如 1366x768、1280x720）：收緊 Hero 間距，讓卡片完整出現 */
+@media (min-width: 769px) and (max-height: 820px) {
+  .hero-title {
+    font-size: 3.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .hero-tags {
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-description {
+    margin-bottom: 1.5rem;
+  }
+}
+
 @media (max-width: 768px) {
+  /* 手機／平板：內容由上往下排，Hero 不再撐滿整個畫面 */
+  .home-view {
+    justify-content: flex-start;
+    gap: 2.5rem;
+    padding: 6rem 0 3rem;
+  }
+
   .hero-section {
-    padding: 6rem 0;
     align-items: center;
     justify-content: center;
   }
@@ -371,9 +389,11 @@ export default {
     padding: 0.25rem 0.8rem;
   }
 
+  .hero-description {
+    margin-bottom: 1.5rem;
+  }
+
   .hero-actions {
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
   }
 
@@ -382,9 +402,16 @@ export default {
     gap: 1rem;
   }
 
+  /* 兩欄時第三張（Spotify）獨佔一列，避免旁邊空一格 */
+  .hover-effect-card:last-child {
+    grid-column: 1 / -1;
+  }
+
+  /* 固定高度在窄螢幕容易讓內容溢出，改成最小高度 */
   .hover-effect-card {
     padding: 1.25rem;
-    height: 180px;
+    height: auto;
+    min-height: 180px;
   }
 
   .card-header {
@@ -406,8 +433,20 @@ export default {
 }
 
 @media (max-width: 480px) {
+  /* 手機版 navbar 在底部：上方不用留空，底部要留給 navbar */
+  .home-view {
+    gap: 2rem;
+    padding: 3rem 0 6.5rem;
+  }
+
   .hero-title {
     font-size: 2rem;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .hero-tags {
+    margin-bottom: 1.25rem;
   }
 
   .hero-tags {
@@ -430,7 +469,7 @@ export default {
 
   .hover-effect-card {
     padding: 1rem;
-    height: 160px;
+    min-height: 0;
   }
 
   .card-header {
@@ -444,10 +483,6 @@ export default {
 
   .card-description {
     font-size: 0.8rem;
-  }
-
-  .section-title {
-    font-size: 2rem;
   }
 }
 </style>
