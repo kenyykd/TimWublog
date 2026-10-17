@@ -24,16 +24,19 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 import MarkdownIt from 'markdown-it'
 import { findPost } from '@/posts'
+import { setPageTitle } from '@/router'
 
 const md = new MarkdownIt({ html: false, linkify: true })
 
 const route = useRoute()
 const post = computed(() => findPost(String(route.params.slug)))
 const html = computed(() => (post.value ? md.render(post.value.content) : ''))
+
+watchEffect(() => setPageTitle(post.value?.title ?? '找不到文章'))
 </script>
 
 <style scoped>
