@@ -10,7 +10,7 @@ import {
   onSnapshot,
   Timestamp,
 } from 'firebase/firestore'
-import { db } from '@/config/firebase'
+import { db } from '@/config/firestore'
 
 export interface Message {
   id: string

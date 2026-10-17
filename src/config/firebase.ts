@@ -1,6 +1,5 @@
 import { initializeApp } from 'firebase/app'
 import { getAuth } from 'firebase/auth'
-import { getFirestore } from 'firebase/firestore'
 
 // Firebase 配置 - 使用環境變數
 const firebaseConfig = {
@@ -27,7 +26,6 @@ const app = initializeApp(firebaseConfig)
 // 初始化 Auth
 export const auth = getAuth(app)
 
-// 初始化 Firestore
-export const db = getFirestore(app)
+// Firestore 只有留言板用到，放在 config/firestore.ts，避免打包進首頁
 
 export default app

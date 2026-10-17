@@ -1,9 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
-import BlogView from '@/views/BlogView.vue'
-import ProjectView from '@/views/ProjectView.vue'
-import MessageView from '@/views/MessageView.vue'
 
+// 首頁直接載入，其他頁面懶載入（各自拆成獨立 chunk）
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -15,23 +13,24 @@ const router = createRouter({
     {
       path: '/blog',
       name: 'blog',
-      component: BlogView,
+      component: () => import('@/views/BlogView.vue'),
     },
     {
       path: '/blog/:slug',
       name: 'post',
-      // 文章頁才用到 markdown-it，拆成獨立 chunk
+      // 文章頁才用到 markdown-it
       component: () => import('@/views/PostView.vue'),
     },
     {
       path: '/project',
       name: 'project',
-      component: ProjectView,
+      component: () => import('@/views/ProjectView.vue'),
     },
     {
       path: '/message',
       name: 'message',
-      component: MessageView,
+      // 留言板才用到 Firestore
+      component: () => import('@/views/MessageView.vue'),
     },
   ],
 })
