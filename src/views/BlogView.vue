@@ -8,27 +8,33 @@
 
     <main class="blog-content">
       <div class="container">
-        <!-- Single Featured Article -->
-        <div class="featured-article">
-          <article class="article-card">
-            <div class="article-image">
-              <div class="placeholder-image">
-                <div class="terminal-window">
-                  <img src="/images/blogs/kenyydblog.png" alt="Tim Wu 網站預覽" />
+        <div class="article-list">
+          <RouterLink
+            v-for="post in posts"
+            :key="post.slug"
+            :to="{ name: 'post', params: { slug: post.slug } }"
+            class="article-link"
+          >
+            <article class="article-card">
+              <div v-if="post.cover" class="article-image">
+                <div class="placeholder-image">
+                  <div class="terminal-window">
+                    <img :src="post.cover" :alt="post.title" loading="lazy" />
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="article-content">
-              <div class="article-header">
-                <h2 class="article-title">Tim Wu's Blog</h2>
-                <div class="article-meta">
-                  <span class="article-date">2025-09-30</span>
-                  <span class="article-category">Vue</span>
+              <div class="article-content">
+                <div class="article-header">
+                  <h2 class="article-title">{{ post.title }}</h2>
+                  <div class="article-meta">
+                    <span class="article-date">{{ post.date }}</span>
+                    <span v-if="post.category" class="article-category">{{ post.category }}</span>
+                  </div>
                 </div>
+                <p class="article-description">{{ post.description }}</p>
               </div>
-              <p class="article-description">How to create this website? Let's check out !</p>
-            </div>
-          </article>
+            </article>
+          </RouterLink>
         </div>
       </div>
     </main>
@@ -36,7 +42,7 @@
 </template>
 
 <script setup lang="ts">
-// Simple blog page with single featured article
+import { posts } from '@/posts'
 </script>
 
 <style scoped>
@@ -80,9 +86,16 @@
   padding-right: 25vw;
 }
 
-.featured-article {
-  max-width: none;
-  margin: 0;
+.article-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.article-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
 }
 
 .article-card {

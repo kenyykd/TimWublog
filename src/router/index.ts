@@ -18,6 +18,12 @@ const router = createRouter({
       component: BlogView,
     },
     {
+      path: '/blog/:slug',
+      name: 'post',
+      // 文章頁才用到 markdown-it，拆成獨立 chunk
+      component: () => import('@/views/PostView.vue'),
+    },
+    {
       path: '/project',
       name: 'project',
       component: ProjectView,

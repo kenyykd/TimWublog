@@ -23,7 +23,7 @@
           <router-link
             :to="item.path"
             class="navbar-item"
-            :class="{ active: $route.path === item.path }"
+            :class="{ active: isActive(item.path) }"
           >
             <span class="navbar-text">{{ item.name }}</span>
           </router-link>
@@ -57,9 +57,14 @@ const isScrolled = ref(false)
 const navMenuRef = ref<HTMLElement>()
 const navItemRefs = ref<HTMLElement[]>([])
 
+// 子路徑也算（例如 /blog/xxx 屬於 Blog）
+function isActive(path: string) {
+  return path === '/' ? route.path === '/' : route.path.startsWith(path)
+}
+
 // 根據當前路由找到對應的索引
 const activeRouteIndex = computed(() => {
-  return menuItems.findIndex((item) => item.path === route.path)
+  return menuItems.findIndex((item) => isActive(item.path))
 })
 
 // 是否顯示指示器
