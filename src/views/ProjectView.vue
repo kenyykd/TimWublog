@@ -158,16 +158,6 @@ const handleProjectClick = (project: Project) => {
   padding: 0 2rem;
 }
 
-.section-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 3rem;
-  color: rgba(255, 255, 255, 0.9);
-  position: relative;
-  z-index: 1;
-}
-
 /* Projects Grid Layout */
 .projects-grid {
   display: grid;
@@ -311,10 +301,6 @@ const handleProjectClick = (project: Project) => {
   .card-description {
     font-size: 0.8rem;
   }
-
-  .section-title {
-    font-size: 2rem;
-  }
 }
 
 @media (max-width: 480px) {
@@ -339,10 +325,6 @@ const handleProjectClick = (project: Project) => {
 
   .card-description {
     font-size: 0.8rem;
-  }
-
-  .section-title {
-    font-size: 2rem;
   }
 }
 </style>

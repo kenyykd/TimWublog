@@ -171,8 +171,6 @@
   transform: scale(1.1);
 }
 
-/* .tech-name styles removed since text is no longer displayed */
-
 @media (max-width: 768px) {
   .tech-stack-icons {
     gap: 0.75rem;
@@ -181,10 +179,6 @@
   .tech-icon .icon {
     width: 28px;
     height: 28px;
-  }
-
-  .tech-name {
-    font-size: 0.7rem;
   }
 }
 
@@ -196,10 +190,6 @@
   .tech-icon .icon {
     width: 24px;
     height: 24px;
-  }
-
-  .tech-name {
-    font-size: 0.65rem;
   }
 }
 </style>

@@ -156,14 +156,6 @@ export default {
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
 }
 
-.hero-role {
-  font-size: 2rem;
-  font-weight: 300;
-  color: rgba(255, 255, 255, 0.6);
-  margin-bottom: 1.5rem;
-  text-align: left;
-}
-
 .hero-tags {
   font-size: 1.125rem;
   color: rgba(255, 255, 255, 0.7);
@@ -365,11 +357,6 @@ export default {
     text-align: center;
   }
 
-  .hero-role {
-    font-size: 1.5rem;
-    text-align: center;
-  }
-
   .hero-tags {
     text-align: center;
   }
@@ -421,10 +408,6 @@ export default {
 @media (max-width: 480px) {
   .hero-title {
     font-size: 2rem;
-  }
-
-  .hero-role {
-    font-size: 1.25rem;
   }
 
   .hero-tags {
