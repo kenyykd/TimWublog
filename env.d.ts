@@ -7,6 +7,7 @@ interface ImportMetaEnv {
   readonly VITE_FIREBASE_STORAGE_BUCKET: string
   readonly VITE_FIREBASE_MESSAGING_SENDER_ID: string
   readonly VITE_FIREBASE_APP_ID: string
+  // 管理員 UID，多個以逗號分隔
   readonly VITE_ADMIN_UID?: string
 }
 

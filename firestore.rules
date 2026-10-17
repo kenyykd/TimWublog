@@ -4,9 +4,12 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // 管理員的 Firebase Auth UID（與 .env 的 VITE_ADMIN_UID 相同）
+    // 管理員的 Firebase Auth UID（與 .env 的 VITE_ADMIN_UID 相同）：GitHub、Google 登入各一個
     function isAdmin() {
-      return request.auth != null && request.auth.uid == 'REPLACE_WITH_ADMIN_UID';
+      return request.auth != null && request.auth.uid in [
+        'r201Nrf54Qa3j4jPRE8D9GgbCMu1',
+        'WNY9fbliEGMtwV2Ly2oaJRVhR583'
+      ];
     }
 
     match /messages/{messageId} {
