@@ -58,7 +58,7 @@ const featuredProjects: Project[] = [
   },
   {
     id: 2,
-    name: 'wanpai (已停止部屬)',
+    name: 'wanpai (已停止部署)',
     description: '讓喜歡玩具的人能更快找到喜歡的玩具，是一個大型的團體專案',
     technologies: ['Vue', 'Tailwind CSS', 'nodejs', 'express'],
     url: 'https://github.com/wanpai-app/frontend',
@@ -75,7 +75,7 @@ const featuredProjects: Project[] = [
   {
     id: 4,
     name: 'UBike',
-    description: 'UBike資訊業面API串接',
+    description: 'UBike資訊頁面API串接',
     technologies: ['next.js'],
     url: 'https://ubike-test.netlify.app/',
     githubUrl: 'https://github.com/kenyykd/ubike',
