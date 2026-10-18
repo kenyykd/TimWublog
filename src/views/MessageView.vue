@@ -27,10 +27,25 @@
 
         <p v-if="authStore.isAdmin && messagesError" class="list-error">{{ messagesError }}</p>
 
+        <!-- 載入失敗（所有訪客都看得到；已有留言時保留列表） -->
+        <div v-if="loadError" class="load-error" role="alert">
+          <span>留言暫時載不出來</span>
+          <button class="retry-btn" @click="reload">重新載入</button>
+          <p v-if="authStore.isAdmin" class="load-error-detail">{{ loadError }}</p>
+        </div>
+
         <!-- 留言列表 -->
         <div class="messages-list">
-          <div v-if="messagesLoading" class="loading-message">載入留言中...</div>
-          <div v-else-if="firestoreMessages.length === 0" class="no-messages">
+          <div v-if="messagesLoading" aria-label="載入留言中" aria-busy="true">
+            <div v-for="n in 3" :key="n" class="message-item skeleton-item">
+              <div class="skeleton skeleton-avatar"></div>
+              <div class="message-info">
+                <div class="skeleton skeleton-line short"></div>
+                <div class="skeleton skeleton-line"></div>
+              </div>
+            </div>
+          </div>
+          <div v-else-if="firestoreMessages.length === 0 && !loadError" class="no-messages">
             還沒有留言，成為第一個留言的人吧！
           </div>
           <div v-else>
@@ -92,6 +107,7 @@ const {
   formatMessageDate,
   isLoading: messagesLoading,
   error: messagesError,
+  loadError,
 } = useMessages()
 
 let unsubscribe: (() => void) | null = null
@@ -126,6 +142,12 @@ const confirmDelete = async (id: string) => {
   } catch {
     // 錯誤訊息已由 useMessages 設定並顯示在列表上方
   }
+}
+
+// 重新建立監聽（載入失敗後由使用者觸發）
+const reload = () => {
+  unsubscribe?.()
+  unsubscribe = subscribeToMessages()
 }
 
 // 生命週期管理
@@ -207,7 +229,8 @@ onUnmounted(() => {
 
 /* 響應式調整登入提示 */
 @media (max-width: 768px) {
-  .login-notice {
+  .login-notice,
+  .load-error {
     max-width: 90%;
   }
 }
@@ -325,7 +348,83 @@ onUnmounted(() => {
   line-height: 1.4;
 }
 
-.loading-message,
+/* 載入失敗提示 */
+.load-error {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  max-width: 60%;
+  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(248, 113, 113, 0.3);
+  border-radius: 0.5rem;
+  background: rgba(248, 113, 113, 0.08);
+  color: #fca5a5;
+  font-size: 0.875rem;
+}
+
+.retry-btn {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0.375rem;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.8125rem;
+  padding: 0.25rem 0.75rem;
+  cursor: pointer;
+}
+
+.retry-btn:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.load-error-detail {
+  flex-basis: 100%;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.75rem;
+  word-break: break-word;
+}
+
+/* 載入中骨架 */
+.skeleton-item::before {
+  display: none;
+}
+
+.skeleton {
+  background: rgba(255, 255, 255, 0.08);
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+.skeleton-avatar {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.skeleton-line {
+  height: 0.75rem;
+  width: 80%;
+  border-radius: 0.25rem;
+  margin-top: 0.375rem;
+}
+
+.skeleton-line.short {
+  width: 30%;
+}
+
+@keyframes skeleton-pulse {
+  50% {
+    opacity: 0.4;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+  }
+}
+
 .no-messages {
   text-align: center;
   color: rgba(255, 255, 255, 0.6);

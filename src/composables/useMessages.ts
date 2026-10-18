@@ -34,6 +34,11 @@ export const MESSAGE_COOLDOWN_SECONDS = 30
 const messages = ref<Message[]>([])
 const isLoading = ref(false)
 const error = ref<string | null>(null)
+// 載入留言列表的錯誤（與發送／刪除的 error 分開，訪客也要看得到）
+const loadError = ref<string | null>(null)
+
+// 超過這個時間還沒收到伺服器資料，就提示載入失敗（仍會繼續等待）
+const LOAD_TIMEOUT_MS = 10_000
 
 const messagesRef = collection(db, 'messages')
 
@@ -79,22 +84,39 @@ export const useMessages = () => {
   // 實時監聽留言更新，回傳取消監聽的函數
   const subscribeToMessages = () => {
     isLoading.value = true
+    loadError.value = null
     const q = query(messagesRef, orderBy('createdAt', 'desc'))
 
-    return onSnapshot(
+    const timeout = setTimeout(() => {
+      loadError.value = '超過 10 秒沒有回應'
+      isLoading.value = false
+    }, LOAD_TIMEOUT_MS)
+
+    const unsubscribe = onSnapshot(
       q,
       (querySnapshot) => {
+        // 離線時 Firestore 會先給一份空的快取結果，不能當成「沒有留言」
+        if (querySnapshot.metadata.fromCache && querySnapshot.empty) return
+
+        clearTimeout(timeout)
         messages.value = querySnapshot.docs.map((d) => ({
           id: d.id,
           ...(d.data({ serverTimestamps: 'estimate' }) as Omit<Message, 'id'>),
         }))
+        loadError.value = null
         isLoading.value = false
       },
       (err) => {
-        error.value = '載入留言失敗：' + err.message
+        clearTimeout(timeout)
+        loadError.value = err.message
         isLoading.value = false
       },
     )
+
+    return () => {
+      clearTimeout(timeout)
+      unsubscribe()
+    }
   }
 
   // 格式化時間顯示
@@ -124,6 +146,7 @@ export const useMessages = () => {
     messages: computed(() => messages.value),
     isLoading: computed(() => isLoading.value),
     error: computed(() => error.value),
+    loadError: computed(() => loadError.value),
 
     // 方法
     addMessage,
