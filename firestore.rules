@@ -24,10 +24,27 @@ service cloud.firestore {
         && request.resource.data.content is string
         && request.resource.data.content.size() > 0
         && request.resource.data.content.size() <= 500
-        && request.resource.data.createdAt == request.time;
+        && request.resource.data.createdAt == request.time
+        // 防洗版：必須與 rateLimits/{uid} 同一批寫入（該文件的規則限制兩次留言間隔）
+        && getAfter(/databases/$(database)/documents/rateLimits/$(request.auth.uid)).data.lastPostAt == request.time;
 
       allow update: if false;
       allow delete: if isAdmin();
+    }
+
+    // 每位使用者最後一次留言的時間；兩次留言至少間隔 30 秒（與前端 MESSAGE_COOLDOWN_SECONDS 相同）
+    match /rateLimits/{uid} {
+      function isValidWrite() {
+        return request.auth != null
+          && request.auth.uid == uid
+          && request.resource.data.keys().hasOnly(['lastPostAt'])
+          && request.resource.data.lastPostAt == request.time;
+      }
+
+      allow create: if isValidWrite();
+      allow update: if isValidWrite()
+        && request.time > resource.data.lastPostAt + duration.value(30, 's');
+      allow read, delete: if false;
     }
 
     // 其他集合一律拒絕

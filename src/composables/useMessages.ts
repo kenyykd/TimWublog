@@ -1,7 +1,6 @@
 import { ref, computed } from 'vue'
 import {
   collection,
-  addDoc,
   deleteDoc,
   doc,
   orderBy,
@@ -9,6 +8,8 @@ import {
   serverTimestamp,
   onSnapshot,
   Timestamp,
+  writeBatch,
+  FirestoreError,
 } from 'firebase/firestore'
 import { db } from '@/config/firestore'
 
@@ -26,6 +27,8 @@ export interface Message {
 export type NewMessage = Omit<Message, 'id' | 'createdAt'>
 
 export const MAX_MESSAGE_LENGTH = 500
+// 兩次留言的最短間隔（秒），需與 firestore.rules 的 rateLimits 規則一致
+export const MESSAGE_COOLDOWN_SECONDS = 30
 
 // 全局留言狀態（所有元件共用同一份）
 const messages = ref<Message[]>([])
@@ -43,16 +46,21 @@ export const useMessages = () => {
   }
 
   // 新增留言；onSnapshot 會立即帶出本地寫入，不需要自己做樂觀更新
+  // 留言與 rateLimits/{uid} 必須同一批寫入，Firestore 規則才會放行（防洗版）
   const addMessage = async (messageData: NewMessage) => {
     error.value = null
     try {
-      const docRef = await addDoc(messagesRef, {
-        ...messageData,
-        createdAt: serverTimestamp(),
-      })
-      return docRef.id
+      const messageRef = doc(messagesRef)
+      const batch = writeBatch(db)
+      batch.set(messageRef, { ...messageData, createdAt: serverTimestamp() })
+      batch.set(doc(db, 'rateLimits', messageData.userId), { lastPostAt: serverTimestamp() })
+      await batch.commit()
+      return messageRef.id
     } catch (err) {
-      error.value = '發送留言失敗：' + errorText(err)
+      error.value =
+        err instanceof FirestoreError && err.code === 'permission-denied'
+          ? '留言太頻繁，請稍後再試'
+          : '發送留言失敗：' + errorText(err)
       throw err
     }
   }

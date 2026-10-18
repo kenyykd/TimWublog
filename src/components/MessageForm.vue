@@ -28,8 +28,13 @@
       <p v-if="error" class="error-text">{{ error }}</p>
 
       <div class="form-actions">
-        <button type="submit" class="submit-btn" :disabled="isSubmitting || !messageContent.trim()">
+        <button
+          type="submit"
+          class="submit-btn"
+          :disabled="isSubmitting || cooldownLeft > 0 || !messageContent.trim()"
+        >
           <span v-if="isSubmitting">發送中...</span>
+          <span v-else-if="cooldownLeft > 0">請稍候 {{ cooldownLeft }} 秒</span>
           <span v-else>發送留言</span>
         </button>
       </div>
@@ -38,8 +43,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useMessages, MAX_MESSAGE_LENGTH } from '@/composables/useMessages'
+import { ref, computed, onUnmounted } from 'vue'
+import {
+  useMessages,
+  MAX_MESSAGE_LENGTH,
+  MESSAGE_COOLDOWN_SECONDS,
+} from '@/composables/useMessages'
 
 interface Props {
   user: {
@@ -57,10 +66,23 @@ interface Emits {
 const props = defineProps<Props>()
 defineEmits<Emits>()
 
-const { addMessage, error } = useMessages()
+const { addMessage, error, messages } = useMessages()
 
 const messageContent = ref('')
 const isSubmitting = ref(false)
+
+// 防洗版冷卻：以自己最新一則留言的時間計算（列表依時間新到舊排序，
+// 剛送出的留言會由 onSnapshot 立即帶出），重新整理頁面後倒數也會接續
+const now = ref(Date.now())
+const timer = setInterval(() => (now.value = Date.now()), 1000)
+onUnmounted(() => clearInterval(timer))
+
+const cooldownLeft = computed(() => {
+  const lastPost = messages.value.find((m) => m.userId === props.user.id)?.createdAt
+  if (!lastPost) return 0
+  const endsAt = lastPost.toMillis() + MESSAGE_COOLDOWN_SECONDS * 1000
+  return Math.max(0, Math.ceil((endsAt - now.value) / 1000))
+})
 
 const submitMessage = async () => {
   const content = messageContent.value.trim()
