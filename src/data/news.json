@@ -1,17 +1,23 @@
 {
-  "updatedAt": "2026-10-19T03:50:10.718Z",
+  "updatedAt": "2026-10-19T03:57:37.963Z",
   "items": [
     {
       "title": "AI發展與普及速度受制於安全性不足，SailPoint創辦人呼籲整個產業持續投入並付諸行動",
       "url": "https://www.ithome.com.tw/news/179760",
       "source": "iThome",
-      "publishedAt": "2026-10-19T03:50:10.717Z"
+      "publishedAt": "2026-10-19T03:57:37.962Z"
     },
     {
       "title": "白銀價格從高點腰斬 暗藏全球經濟放緩警訊",
       "url": "https://finance.technews.tw/2026/10/19/silver-prices-plunge-over-50-signaling-global-economic-slowdown/",
       "source": "科技新報",
       "publishedAt": "2026-10-19T03:50:01.000Z"
+    },
+    {
+      "title": "NVIDIA 高層揭密：RTX Spark 如何聯手聯發科、微軟與台灣 OEM，30 天把地端 AI 推向全球？",
+      "url": "https://www.inside.com.tw/article/42674-nvidia-rtx-spark-taipei",
+      "source": "INSIDE",
+      "publishedAt": "2026-10-19T03:49:00.000Z"
     },
     {
       "title": "金鑰恐外洩！OpenCode 證實 Console 遭入侵，1.4% 使用者受影響",
@@ -54,12 +60,6 @@
       "url": "https://technews.tw/2026/10/19/poor-performance-in-mathematics-is-not-due-to-weak-calculation-skills-research-suggests-that-language-and-reasoning-abilities-are-the-key-factors/",
       "source": "科技新報",
       "publishedAt": "2026-10-19T03:18:17.000Z"
-    },
-    {
-      "title": "日本漢堡王CRM系統遭駭，外洩逾1,100萬會員個資",
-      "url": "https://www.ithome.com.tw/news/179766",
-      "source": "iThome",
-      "publishedAt": "2026-10-19T03:10:47.000Z"
     }
   ]
 }
