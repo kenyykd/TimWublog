@@ -1,0 +1,31 @@
+{
+  "month": "2026-10",
+  "chartDate": "2026-10-15",
+  "songs": [
+    {
+      "rank": 1,
+      "title": "BbY WOW",
+      "artist": "KAROL G, Judeline, rusowsky"
+    },
+    {
+      "rank": 2,
+      "title": "Nicole Kidman",
+      "artist": "ADÉLA"
+    },
+    {
+      "rank": 3,
+      "title": "Ain't In LA",
+      "artist": "ADÉLA"
+    },
+    {
+      "rank": 4,
+      "title": "the cure",
+      "artist": "Olivia Rodrigo"
+    },
+    {
+      "rank": 5,
+      "title": "Earrings",
+      "artist": "Malcolm Todd"
+    }
+  ]
+}
