@@ -1,0 +1,37 @@
+# 每天抓 iThome、科技新報、INSIDE、Hacker News 最新 10 篇，更新 News 頁；push 後 Vercel 會自動部署
+name: 更新科技新聞
+
+on:
+  schedule:
+    - cron: '0 22 * * *' # 每天 UTC 22:00（台灣 06:00）
+  workflow_dispatch: # 可在 GitHub → Actions 手動執行
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+
+      - name: 抓取新聞
+        run: node scripts/update-news.mjs
+
+      - name: 有變更就 commit 並 push
+        run: |
+          if git diff --quiet -- src/data/news.json; then
+            echo "新聞沒有變更"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add src/data/news.json
+          git commit -m '更新科技新聞'
+          # 執行期間若有人 push，先接上最新的 main 再推
+          git pull --rebase
+          git push

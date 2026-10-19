@@ -47,6 +47,10 @@
 - `useAuth`、`useMessages` 這兩個 composable 封裝 Firebase 操作，狀態放在模組層級，多個元件呼叫時拿到的是同一份資料
 - Pinia `auth` store 在 composable 之上提供整理過的使用者資料與管理員判斷
 
+### 排程更新資料
+
+News 頁的科技新聞與首頁的熱門歌曲，都由 GitHub Actions 排程執行 Node 腳本抓取（新聞每天、歌單每月），寫成 `src/data/*.json` 後自動 commit，觸發 Vercel 重新部署。資料在 build 時打包進網站，瀏覽器不需要另外請求外部 API，也避開了 RSS 的 CORS 限制；來源抓不到時保留上一次的資料。
+
 ### SPA 路由與部署
 
 Vue Router 使用 History 模式，網址沒有 `#`。由於直接開啟 `/blog` 這類路徑時，Vercel 找不到對應的檔案會回傳 404，因此用 `vercel.json` 把所有路徑導回 `index.html`，交給前端路由處理。push 到 `main` 後 Vercel 會自動建置並部署。
@@ -58,10 +62,12 @@ src/
 ├── components/    共用元件（導覽列、登入視窗、留言表單、文字動畫）
 ├── composables/   useAuth、useMessages
 ├── config/        Firebase 初始化（Firestore 獨立，只有留言板載入）
+├── data/          排程更新的資料（新聞、熱門歌曲）
 ├── posts/         Blog 文章（Markdown）
 ├── router/        路由設定
 ├── stores/        Pinia store
 └── views/         頁面
+scripts/           資料抓取腳本（由 .github/workflows 排程執行）
 ```
 
 ## 本機開發

@@ -20,11 +20,7 @@
           class="navbar-item-wrapper"
           @mouseenter="setHoverIndex(index)"
         >
-          <router-link
-            :to="item.path"
-            class="navbar-item"
-            :class="{ active: isActive(item.path) }"
-          >
+          <router-link :to="item.path" class="navbar-item" :class="{ active: isActive(item.path) }">
             <span class="navbar-text">{{ item.name }}</span>
           </router-link>
         </div>
@@ -47,6 +43,7 @@ const route = useRoute()
 const menuItems: MenuItem[] = [
   { name: 'Home', path: '/' },
   { name: 'Blog', path: '/blog' },
+  { name: 'News', path: '/news' },
   { name: 'Project', path: '/project' },
   { name: 'Message', path: '/message' },
 ]
@@ -296,6 +293,13 @@ onUnmounted(() => {
     top: 0.25rem;
     left: 0.25rem;
     height: calc(100% - 0.5rem);
+  }
+}
+
+/* 5 個項目在 320px 左右的手機會超出，收窄左右間距 */
+@media (max-width: 380px) {
+  .navbar-item {
+    padding: 0.5rem 0.6rem;
   }
 }
 
