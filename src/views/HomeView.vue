@@ -4,20 +4,20 @@
       <div class="container">
         <div class="hero-content">
           <h1 class="hero-title">
-            Hi, I'm
+            {{ t('home.greeting') }}
             <TextFlip text="Tim Wu" class="highlight-text" />
           </h1>
 
-          <p class="hero-tags">#Tim Wu #Frontend #坤郁</p>
+          <p class="hero-tags">{{ t('home.tags') }}</p>
           <div class="hero-description">
-            <TextGenerateEffect
-              text="Welcome to my blog, feel free to explore and discover amazing content!"
-              class="description-text"
-            />
+            <!-- 換語言時重新掛載，動畫才會重播 -->
+            <TextGenerateEffect :key="locale" :text="t('home.welcome')" class="description-text" />
           </div>
           <div class="hero-actions">
-            <router-link to="/blog" class="btn btn-primary">Blog</router-link>
-            <router-link to="/project" class="btn btn-secondary">Projects</router-link>
+            <router-link to="/blog" class="btn btn-primary">{{ t('home.blog') }}</router-link>
+            <router-link to="/project" class="btn btn-secondary">{{
+              t('home.projects')
+            }}</router-link>
           </div>
         </div>
       </div>
@@ -26,14 +26,16 @@
     <div class="featured-section">
       <div class="container">
         <div class="cards-grid">
-          <div v-for="company in companies" :key="company.name" class="hover-effect-card">
+          <div v-for="company in companies" :key="company.id" class="hover-effect-card">
             <div class="card-content">
               <div class="card-header">
-                <h3 class="card-title" v-if="company.name !== 'Spotify'">{{ company.name }}</h3>
+                <h3 class="card-title" v-if="company.title">{{ t(company.title) }}</h3>
               </div>
-              <p class="card-description" v-if="company.description">{{ company.description }}</p>
-              <TechStackIcons v-if="company.name === 'Tech Stack'" />
-              <SpotifyPlaylist v-if="company.name === 'Spotify'" />
+              <p class="card-description" v-if="company.description">
+                {{ t(company.description) }}
+              </p>
+              <TechStackIcons v-if="company.id === 'tech'" />
+              <SpotifyPlaylist v-if="company.id === 'spotify'" />
             </div>
           </div>
         </div>
@@ -47,19 +49,15 @@ import TextFlip from '@/components/TextFlip.vue'
 import TextGenerateEffect from '@/components/TextGenerateEffect.vue'
 import TechStackIcons from '@/components/TechStackIcons.vue'
 import SpotifyPlaylist from '@/components/SpotifyPlaylist.vue'
+import { useI18n } from 'vue-i18n'
 
+const { t, locale } = useI18n()
+
+// title / description 是 i18n key；Spotify 卡片自帶標題
 const companies = [
-  {
-    name: 'About Me',
-    description: 'You can call me  Tim Wu, Kunyu or 坤郁, living in Taiwan, Taipei.',
-  },
-  {
-    name: 'Tech Stack',
-    description: '',
-  },
-  {
-    name: 'Spotify',
-  },
+  { id: 'about', title: 'home.aboutTitle', description: 'home.aboutDescription' },
+  { id: 'tech', title: 'home.techStackTitle' },
+  { id: 'spotify' },
 ]
 </script>
 

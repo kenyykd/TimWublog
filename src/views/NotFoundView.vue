@@ -2,9 +2,9 @@
   <div class="not-found-view">
     <main class="container">
       <p class="code">404</p>
-      <h1 class="title">找不到這個頁面</h1>
-      <p class="description">網址可能打錯了，或這個頁面已經不存在。</p>
-      <RouterLink to="/" class="home-link">回到首頁</RouterLink>
+      <h1 class="title">{{ $t('notFound.title') }}</h1>
+      <p class="description">{{ $t('notFound.description') }}</p>
+      <RouterLink to="/" class="home-link">{{ $t('notFound.home') }}</RouterLink>
     </main>
   </div>
 </template>

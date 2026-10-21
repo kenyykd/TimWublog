@@ -1,7 +1,7 @@
 <template>
   <div class="post-view">
     <main class="container">
-      <RouterLink to="/blog" class="back-link">← 回到 Blog</RouterLink>
+      <RouterLink to="/blog" class="back-link">{{ t('post.back') }}</RouterLink>
 
       <article v-if="post">
         <header class="post-header">
@@ -16,8 +16,8 @@
       </article>
 
       <div v-else class="not-found">
-        <h1 class="post-title">找不到這篇文章</h1>
-        <p>文章可能已被移除，或網址打錯了。</p>
+        <h1 class="post-title">{{ t('post.notFoundTitle') }}</h1>
+        <p>{{ t('post.notFoundDescription') }}</p>
       </div>
     </main>
   </div>
@@ -27,16 +27,18 @@
 import { computed, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 import MarkdownIt from 'markdown-it'
+import { useI18n } from 'vue-i18n'
 import { findPost } from '@/posts'
 import { setPageTitle } from '@/router'
 
 const md = new MarkdownIt({ html: false, linkify: true })
 
 const route = useRoute()
+const { t } = useI18n()
 const post = computed(() => findPost(String(route.params.slug)))
 const html = computed(() => (post.value ? md.render(post.value.content) : ''))
 
-watchEffect(() => setPageTitle(post.value?.title ?? '找不到文章'))
+watchEffect(() => setPageTitle(post.value?.title ?? t('post.notFoundPageTitle')))
 </script>
 
 <style scoped>

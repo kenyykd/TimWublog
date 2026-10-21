@@ -21,9 +21,20 @@
           @mouseenter="setHoverIndex(index)"
         >
           <router-link :to="item.path" class="navbar-item" :class="{ active: isActive(item.path) }">
-            <span class="navbar-text">{{ item.name }}</span>
+            <span class="navbar-text">{{ t(item.key) }}</span>
           </router-link>
         </div>
+
+        <!-- 語言切換（不放進 navbar-item-wrapper，指示器的索引才不會跑掉） -->
+        <button
+          type="button"
+          class="navbar-item lang-toggle"
+          :aria-label="t('nav.switchLanguage')"
+          :title="t('nav.switchLanguage')"
+          @click="toggleLocale"
+        >
+          {{ t('nav.switchLabel') }}
+        </button>
       </div>
     </div>
   </nav>
@@ -32,20 +43,23 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, watch, nextTick } from 'vue'
 import { useRoute } from 'vue-router'
+import { useI18n } from 'vue-i18n'
+import { setLocale } from '@/i18n'
 
 interface MenuItem {
-  name: string
+  key: string
   path: string
 }
 
 const route = useRoute()
+const { t, locale } = useI18n()
 
 const menuItems: MenuItem[] = [
-  { name: 'Home', path: '/' },
-  { name: 'Blog', path: '/blog' },
-  { name: 'News', path: '/news' },
-  { name: 'Project', path: '/project' },
-  { name: 'Message', path: '/message' },
+  { key: 'nav.home', path: '/' },
+  { key: 'nav.blog', path: '/blog' },
+  { key: 'nav.news', path: '/news' },
+  { key: 'nav.project', path: '/project' },
+  { key: 'nav.message', path: '/message' },
 ]
 
 const activeIndex = ref(0)
@@ -53,6 +67,8 @@ const hoveredIndex = ref(-1)
 const isScrolled = ref(false)
 const navMenuRef = ref<HTMLElement>()
 const navItemRefs = ref<HTMLElement[]>([])
+// 版面變動（換語言、改視窗大小）時遞增，讓 indicatorStyle 重新量測
+const layoutVersion = ref(0)
 
 // 子路徑也算（例如 /blog/xxx 屬於 Blog）
 function isActive(path: string) {
@@ -81,6 +97,7 @@ const resetHover = () => {
 
 // 計算指示器的樣式
 const indicatorStyle = computed(() => {
+  void layoutVersion.value
   const displayIndex = hoveredIndex.value >= 0 ? hoveredIndex.value : activeRouteIndex.value
 
   if (displayIndex < 0 || !navItemRefs.value[displayIndex]) {
@@ -121,7 +138,7 @@ const handleScroll = () => {
 const updateIndicatorPosition = async () => {
   await nextTick()
   // 觸發 computed 重新計算
-  hoveredIndex.value = hoveredIndex.value
+  layoutVersion.value++
 }
 
 // 監聽路由變化
@@ -132,6 +149,11 @@ watch(
     updateIndicatorPosition()
   },
 )
+
+const toggleLocale = () => setLocale(locale.value === 'ja' ? 'zh-Hant' : 'ja')
+
+// 換語言後項目寬度會變，重新計算指示器
+watch(locale, updateIndicatorPosition)
 
 // 監聽窗口大小變化
 const handleResize = () => {
@@ -212,6 +234,21 @@ onUnmounted(() => {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   white-space: nowrap;
+}
+
+.lang-toggle {
+  z-index: 2;
+  margin-left: 0.25rem;
+  background: none;
+  border: none;
+  border-left: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 0 2rem 2rem 0;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.lang-toggle:hover {
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .navbar-text {
@@ -300,6 +337,11 @@ onUnmounted(() => {
 @media (max-width: 380px) {
   .navbar-item {
     padding: 0.5rem 0.6rem;
+  }
+
+  .lang-toggle {
+    margin-left: 0;
+    padding: 0.5rem 0.5rem;
   }
 }
 

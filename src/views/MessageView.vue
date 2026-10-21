@@ -2,7 +2,7 @@
   <div class="message-view">
     <div class="message-header">
       <div class="container">
-        <h1 class="page-title">Message</h1>
+        <h1 class="page-title">{{ $t('page.message') }}</h1>
       </div>
     </div>
 
@@ -10,7 +10,7 @@
       <div class="container">
         <!-- 登入狀態判斷 -->
         <div v-if="!authStore.isAuthenticated" class="login-notice" @click="showLogin">
-          🔒 Please log in to leave a message
+          {{ $t('message.loginNotice') }}
         </div>
 
         <!-- 留言輸入框（登入後顯示） -->
@@ -29,14 +29,14 @@
 
         <!-- 載入失敗（所有訪客都看得到；已有留言時保留列表） -->
         <div v-if="loadError" class="load-error" role="alert">
-          <span>留言暫時載不出來</span>
-          <button class="retry-btn" @click="reload">重新載入</button>
+          <span>{{ $t('message.loadFailed') }}</span>
+          <button class="retry-btn" @click="reload">{{ $t('message.retry') }}</button>
           <p v-if="authStore.isAdmin" class="load-error-detail">{{ loadError }}</p>
         </div>
 
         <!-- 留言列表 -->
         <div class="messages-list">
-          <div v-if="messagesLoading" aria-label="載入留言中" aria-busy="true">
+          <div v-if="messagesLoading" :aria-label="$t('message.loading')" aria-busy="true">
             <div v-for="n in 3" :key="n" class="message-item skeleton-item">
               <div class="skeleton skeleton-avatar"></div>
               <div class="message-info">
@@ -46,7 +46,7 @@
             </div>
           </div>
           <div v-else-if="firestoreMessages.length === 0 && !loadError" class="no-messages">
-            還沒有留言，成為第一個留言的人吧！
+            {{ $t('message.empty') }}
           </div>
           <div v-else>
             <div v-for="message in firestoreMessages" :key="message.id" class="message-item">
@@ -66,12 +66,14 @@
                   <span v-if="authStore.isAdmin" class="admin-actions">
                     <template v-if="pendingDeleteId === message.id">
                       <button class="delete-btn confirm" @click="confirmDelete(message.id)">
-                        確定刪除
+                        {{ $t('message.confirmDelete') }}
                       </button>
-                      <button class="delete-btn" @click="pendingDeleteId = null">取消</button>
+                      <button class="delete-btn" @click="pendingDeleteId = null">
+                        {{ $t('message.cancel') }}
+                      </button>
                     </template>
                     <button v-else class="delete-btn" @click="pendingDeleteId = message.id">
-                      刪除
+                      {{ $t('message.delete') }}
                     </button>
                   </span>
                 </div>

@@ -12,6 +12,7 @@ import {
   FirestoreError,
 } from 'firebase/firestore'
 import { db } from '@/config/firestore'
+import i18n from '@/i18n'
 
 export interface Message {
   id: string
@@ -42,6 +43,8 @@ const LOAD_TIMEOUT_MS = 10_000
 
 const messagesRef = collection(db, 'messages')
 
+const { t } = i18n.global
+
 const errorText = (err: unknown) => (err instanceof Error ? err.message : String(err))
 
 export const useMessages = () => {
@@ -64,8 +67,8 @@ export const useMessages = () => {
     } catch (err) {
       error.value =
         err instanceof FirestoreError && err.code === 'permission-denied'
-          ? '留言太頻繁，請稍後再試'
-          : '發送留言失敗：' + errorText(err)
+          ? t('message.errors.tooFrequent')
+          : t('message.errors.sendFailed', { detail: errorText(err) })
       throw err
     }
   }
@@ -76,7 +79,7 @@ export const useMessages = () => {
     try {
       await deleteDoc(doc(db, 'messages', id))
     } catch (err) {
-      error.value = '刪除留言失敗：' + errorText(err)
+      error.value = t('message.errors.deleteFailed', { detail: errorText(err) })
       throw err
     }
   }
@@ -88,7 +91,7 @@ export const useMessages = () => {
     const q = query(messagesRef, orderBy('createdAt', 'desc'))
 
     const timeout = setTimeout(() => {
-      loadError.value = '超過 10 秒沒有回應'
+      loadError.value = t('message.errors.timeout')
       isLoading.value = false
     }, LOAD_TIMEOUT_MS)
 
@@ -119,7 +122,7 @@ export const useMessages = () => {
     }
   }
 
-  // 格式化時間顯示
+  // 格式化時間顯示（在模板中呼叫，t 會讀取 locale，換語言時自動重新渲染）
   const formatMessageDate = (timestamp: Timestamp | null): string => {
     const date = timestamp ? timestamp.toDate() : new Date()
 
@@ -127,17 +130,19 @@ export const useMessages = () => {
     const diffInMinutes = Math.floor((now.getTime() - date.getTime()) / (1000 * 60))
 
     if (diffInMinutes < 1) {
-      return 'Just now'
+      return t('message.justNow')
     } else if (diffInMinutes < 60) {
-      return `${diffInMinutes} minute${diffInMinutes > 1 ? 's' : ''} ago`
+      return t('message.minutesAgo', diffInMinutes)
     } else if (diffInMinutes < 24 * 60) {
       const hours = Math.floor(diffInMinutes / 60)
-      return `${hours} hour${hours > 1 ? 's' : ''} ago`
+      return t('message.hoursAgo', hours)
     } else if (diffInMinutes < 7 * 24 * 60) {
       const days = Math.floor(diffInMinutes / (24 * 60))
-      return `${days} day${days > 1 ? 's' : ''} ago`
+      return t('message.daysAgo', days)
     } else {
-      return date.toLocaleDateString()
+      return i18n.global.locale.value === 'ja'
+        ? date.toLocaleDateString('ja-JP')
+        : date.toLocaleDateString()
     }
   }
 

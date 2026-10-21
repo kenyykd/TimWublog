@@ -2,7 +2,7 @@
   <div class="project-view">
     <div class="project-header">
       <div class="container">
-        <h1 class="page-title">Project</h1>
+        <h1 class="page-title">{{ t('page.project') }}</h1>
       </div>
     </div>
 
@@ -21,9 +21,11 @@
             >
               <div class="card-content">
                 <div class="card-header">
-                  <h3 class="card-title">{{ project.name }}</h3>
+                  <h3 class="card-title">
+                    {{ project.nameKey ? t(project.nameKey) : project.name }}
+                  </h3>
                 </div>
-                <p class="card-description" v-if="project.description">{{ project.description }}</p>
+                <p class="card-description">{{ t(project.descriptionKey) }}</p>
                 <div class="project-tech">
                   <span v-for="tech in project.technologies" :key="tech" class="tech-tag">
                     {{ tech }}
@@ -39,29 +41,35 @@
 </template>
 
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+
 interface Project {
   id: number
-  name: string
-  description: string
+  name?: string
+  // 有中日文差異的名稱與描述用 i18n key
+  nameKey?: string
+  descriptionKey: string
   technologies: string[]
   url?: string
   githubUrl?: string
 }
 
-// Featured Projects Data - 6 items (2 rows x 3 columns)
+// Featured Projects Data
 const featuredProjects: Project[] = [
   {
     id: 1,
     name: 'instagram-login-clone',
-    description: '使用純html和css實現的instagram登入頁面',
+    descriptionKey: 'projects.instagram.description',
     technologies: ['HTML', 'CSS'],
     url: 'https://ig-clone-pr.netlify.app/',
     githubUrl: 'https://github.com/kenyykd/instagram-login-clone',
   },
   {
     id: 2,
-    name: 'wanpai (已停止部署)',
-    description: '讓喜歡玩具的人能更快找到喜歡的玩具，是一個大型的團體專案',
+    nameKey: 'projects.wanpai.name',
+    descriptionKey: 'projects.wanpai.description',
     technologies: ['Vue', 'Tailwind CSS', 'nodejs', 'express'],
     url: 'https://github.com/wanpai-app/frontend',
     githubUrl: 'https://github.com/wanpai-app/frontend',
@@ -69,7 +77,7 @@ const featuredProjects: Project[] = [
   {
     id: 3,
     name: 'inline-net-clone',
-    description: '模仿inline訂餐系統的頁面',
+    descriptionKey: 'projects.inline.description',
     technologies: ['HTML', 'CSS'],
     url: 'https://inline-net-clone.netlify.app/',
     githubUrl: 'https://github.com/kenyykd/inline-net-clone',
@@ -77,15 +85,15 @@ const featuredProjects: Project[] = [
   {
     id: 4,
     name: 'UBike',
-    description: 'UBike資訊頁面API串接',
+    descriptionKey: 'projects.ubike.description',
     technologies: ['next.js'],
     url: 'https://ubike-test.netlify.app/',
     githubUrl: 'https://github.com/kenyykd/ubike',
   },
   {
     id: 5,
-    name: '打磚遊戲',
-    description: 'canvas和matter.js，2d物理引擎實現的打磚遊戲',
+    nameKey: 'projects.brick.name',
+    descriptionKey: 'projects.brick.description',
     technologies: ['next.js'],
     url: 'https://hit-break.netlify.app/',
     githubUrl: 'https://github.com/kenyykd/hit-brick',

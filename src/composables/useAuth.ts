@@ -10,6 +10,7 @@ import {
 } from 'firebase/auth'
 import { FirebaseError } from 'firebase/app'
 import { auth } from '@/config/firebase'
+import i18n from '@/i18n'
 
 // 全局用戶狀態
 const user = ref<User | null>(null)
@@ -17,21 +18,20 @@ const isLoading = ref(false)
 const error = ref<string | null>(null)
 let isInitialized = false
 
-// 錯誤訊息處理
+// 錯誤訊息處理（值為 i18n key，以發生錯誤當下的語言顯示）
 const errorMessages: Record<string, string> = {
-  'auth/user-disabled': '該用戶帳戶已被停用',
-  'auth/too-many-requests': '請求過於頻繁，請稍後再試',
-  'auth/network-request-failed': '網絡連接失敗',
-  'auth/popup-blocked': '彈出視窗被阻擋，請允許彈出視窗',
-  'auth/account-exists-with-different-credential':
-    '該電子郵件已使用其他方式註冊，請改用原本的登入方式（Google 或 GitHub）。',
-  'auth/invalid-credential': '無效的憑證',
-  'auth/operation-not-allowed': '該登入方式未啟用',
+  'auth/user-disabled': 'login.errors.userDisabled',
+  'auth/too-many-requests': 'login.errors.tooManyRequests',
+  'auth/network-request-failed': 'login.errors.networkFailed',
+  'auth/popup-blocked': 'login.errors.popupBlocked',
+  'auth/account-exists-with-different-credential': 'login.errors.accountExists',
+  'auth/invalid-credential': 'login.errors.invalidCredential',
+  'auth/operation-not-allowed': 'login.errors.operationNotAllowed',
 }
 
 const getErrorMessage = (err: unknown): string => {
   const code = err instanceof FirebaseError ? err.code : ''
-  return errorMessages[code] || '登入過程發生未知錯誤'
+  return i18n.global.t(errorMessages[code] || 'login.errors.unknown')
 }
 
 const isPopupClosed = (err: unknown) =>

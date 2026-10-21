@@ -8,7 +8,7 @@
       />
       <div class="user-details">
         <span class="user-name">{{ user.name || user.email }}</span>
-        <button @click="$emit('logout')" class="logout-btn">登出</button>
+        <button @click="$emit('logout')" class="logout-btn">{{ $t('message.logout') }}</button>
       </div>
     </div>
 
@@ -17,7 +17,7 @@
         <textarea
           v-model="messageContent"
           class="message-input"
-          placeholder="寫下您的留言..."
+          :placeholder="$t('message.placeholder')"
           rows="3"
           :maxlength="MAX_MESSAGE_LENGTH"
           required
@@ -33,9 +33,11 @@
           class="submit-btn"
           :disabled="isSubmitting || cooldownLeft > 0 || !messageContent.trim()"
         >
-          <span v-if="isSubmitting">發送中...</span>
-          <span v-else-if="cooldownLeft > 0">請稍候 {{ cooldownLeft }} 秒</span>
-          <span v-else>發送留言</span>
+          <span v-if="isSubmitting">{{ $t('message.sending') }}</span>
+          <span v-else-if="cooldownLeft > 0">
+            {{ $t('message.cooldown', { seconds: cooldownLeft }) }}
+          </span>
+          <span v-else>{{ $t('message.send') }}</span>
         </button>
       </div>
     </form>

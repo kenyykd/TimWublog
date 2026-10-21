@@ -2,7 +2,7 @@
   <div class="blog-view">
     <header class="blog-header">
       <div class="container">
-        <h1 class="page-title">Blog</h1>
+        <h1 class="page-title">{{ $t('page.blog') }}</h1>
       </div>
     </header>
 

@@ -1,10 +1,13 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { watch } from 'vue'
+import { createRouter, createWebHistory, type RouteLocationNormalized } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
+import i18n from '@/i18n'
 
 export const SITE_NAME = 'Tim Wu'
 
 declare module 'vue-router' {
   interface RouteMeta {
+    // i18n key
     title?: string
   }
 }
@@ -22,7 +25,7 @@ const router = createRouter({
       path: '/blog',
       name: 'blog',
       component: () => import('@/views/BlogView.vue'),
-      meta: { title: 'Blog' },
+      meta: { title: 'page.blog' },
     },
     {
       path: '/blog/:slug',
@@ -34,26 +37,26 @@ const router = createRouter({
       path: '/news',
       name: 'news',
       component: () => import('@/views/NewsView.vue'),
-      meta: { title: 'News' },
+      meta: { title: 'page.news' },
     },
     {
       path: '/project',
       name: 'project',
       component: () => import('@/views/ProjectView.vue'),
-      meta: { title: 'Project' },
+      meta: { title: 'page.project' },
     },
     {
       path: '/message',
       name: 'message',
       // 留言板才用到 Firestore
       component: () => import('@/views/MessageView.vue'),
-      meta: { title: 'Message' },
+      meta: { title: 'page.message' },
     },
     {
       path: '/:pathMatch(.*)*',
       name: 'not-found',
       component: () => import('@/views/NotFoundView.vue'),
-      meta: { title: '找不到頁面' },
+      meta: { title: 'notFound.pageTitle' },
     },
   ],
 })
@@ -62,8 +65,13 @@ export function setPageTitle(title?: string) {
   document.title = title ? `${title} | ${SITE_NAME}` : SITE_NAME
 }
 
-router.afterEach((to) => {
-  if (to.name !== 'post') setPageTitle(to.meta.title)
-})
+const setRouteTitle = (to: RouteLocationNormalized) => {
+  if (to.name !== 'post') setPageTitle(to.meta.title && i18n.global.t(to.meta.title))
+}
+
+router.afterEach(setRouteTitle)
+
+// 切換語言時重設標題（文章頁由 PostView 自己處理）
+watch(i18n.global.locale, () => setRouteTitle(router.currentRoute.value))
 
 export default router

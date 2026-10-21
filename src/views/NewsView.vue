@@ -2,7 +2,7 @@
   <div class="news-view">
     <header class="news-header">
       <div class="container">
-        <h1 class="page-title">News</h1>
+        <h1 class="page-title">{{ $t('page.news') }}</h1>
       </div>
     </header>
 
@@ -23,7 +23,7 @@
         </ol>
 
         <p class="news-footer">
-          每天更新 · 最後更新
+          {{ $t('news.updated') }}
           <time :datetime="news.updatedAt">{{ formatDate(news.updatedAt) }}</time>
         </p>
       </div>

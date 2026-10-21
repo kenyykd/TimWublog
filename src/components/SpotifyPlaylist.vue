@@ -8,7 +8,7 @@
           />
         </svg>
       </div>
-      <span class="playlist-title">Global Top 5</span>
+      <span class="playlist-title">{{ $t('spotify.title') }}</span>
       <span class="playlist-month">{{ monthLabel }}</span>
     </div>
 

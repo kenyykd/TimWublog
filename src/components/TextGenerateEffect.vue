@@ -3,8 +3,8 @@
     <span
       v-for="(word, index) in words"
       :key="index"
-      :class="['word', { visible: visibleWords.includes(index) }]"
-      :style="{ animationDelay: `${index * 0.1}s` }"
+      :class="['word', { visible: visibleWords.includes(index), char: perChar }]"
+      :style="{ animationDelay: `${(index * step) / 1000}s` }"
     >
       {{ word }}
     </span>
@@ -29,14 +29,17 @@ const props = withDefaults(defineProps<Props>(), {
 
 const visibleWords = ref<number[]>([])
 
-const words = computed(() => props.text.split(' '))
+// 中日文等沒有空格的句子改成逐字顯示（不加字距）
+const perChar = computed(() => !props.text.includes(' '))
+const words = computed(() => (perChar.value ? Array.from(props.text) : props.text.split(' ')))
+const step = computed(() => (perChar.value ? 50 : 100))
 
 onMounted(() => {
   // 逐個顯示單詞
   words.value.forEach((_, index) => {
     setTimeout(() => {
       visibleWords.value.push(index)
-    }, index * 100)
+    }, index * step.value)
   })
 })
 </script>
@@ -59,6 +62,10 @@ onMounted(() => {
   opacity: 1;
   filter: blur(0px);
   transform: translateY(0px);
+}
+
+.word.char {
+  margin-right: 0;
 }
 
 .word:last-child {
