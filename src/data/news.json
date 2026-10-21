@@ -1,65 +1,65 @@
 {
-  "updatedAt": "2026-10-20T00:50:52.033Z",
+  "updatedAt": "2026-10-21T00:16:27.590Z",
   "items": [
     {
-      "title": "馬斯克宣布送 SpaceX 股票，明年擬發美國每名孩童 1 股",
-      "url": "https://finance.technews.tw/2026/10/20/elon-musk-vows-to-give-a-share-of-spacex-stock-to-every-us-child/",
+      "title": "韓國研發 100 吋「發聲顯示器」，聲音隨畫面移動準確率達 99.9%",
+      "url": "https://technews.tw/2026/10/21/your-next-tv-could-play-sound-from-the-exact-spot-where-the-action-happens/",
       "source": "科技新報",
-      "publishedAt": "2026-10-20T00:40:08.000Z"
+      "publishedAt": "2026-10-21T00:10:54.000Z"
     },
     {
-      "title": "自駕車只「看得見」還不夠，智慧地圖讓車輛像在地人「理解」路況",
-      "url": "https://technews.tw/2026/10/20/key-mapless-debate-self-driving-cars/",
+      "title": "免費 Adobe 對標軟體大放送，AI 會摧毀軟體業嗎？",
+      "url": "https://technews.tw/2026/10/21/ai-destroy-software-industry/",
       "source": "科技新報",
-      "publishedAt": "2026-10-20T00:30:11.000Z"
+      "publishedAt": "2026-10-21T00:00:15.000Z"
     },
     {
-      "title": "從 2021 年的研究路線圖到 Claude Code，Anthropic 如何把 AI 程式設計師變成現實",
-      "url": "https://technews.tw/2026/10/20/anthropic-was-researching-safe-ai-agents-as-early-as-2021/",
+      "title": "Claude 半小時解開 26 年密碼學謎題，揭 NIST 曲線種子來自系統時間",
+      "url": "https://technews.tw/2026/10/21/claude-solves-mystery-behind-nist-curve-seeds/",
       "source": "科技新報",
-      "publishedAt": "2026-10-20T00:20:28.000Z"
+      "publishedAt": "2026-10-20T23:50:12.000Z"
     },
     {
-      "title": "NASA 重返金星計畫加速，DAVINCI 提前至 2030 年發射",
-      "url": "https://technews.tw/2026/10/20/nasa-relaunches-venus-exploration-mission/",
+      "title": "Vibe Coding 改造家中智慧電視，移除廣告與臃腫軟體",
+      "url": "https://technews.tw/2026/10/21/dumbing-down-smart-tvs-to-eliminate-unnecessary-features/",
       "source": "科技新報",
-      "publishedAt": "2026-10-20T00:10:03.000Z"
+      "publishedAt": "2026-10-20T23:44:53.000Z"
     },
     {
-      "title": "France's Supermarket Fridges Were Vulnerable Online for Months",
-      "url": "https://ipinfo.io/blog/france-fridges-hack",
+      "title": "自駕車上路前的魔鬼考官，Laplace Intelligence 用 AI 代理打造極端情境模擬",
+      "url": "https://technews.tw/2026/10/21/laplace-intelligence-red-teams-robots-and-self-driving-cars-before-they-hit-the-real-world/",
+      "source": "科技新報",
+      "publishedAt": "2026-10-20T23:40:25.000Z"
+    },
+    {
+      "title": "免除高風險開心手術，微型機器人讓數週心臟治療縮至一天",
+      "url": "https://technews.tw/2026/10/21/millirobots-shorten-heart-procedures/",
+      "source": "科技新報",
+      "publishedAt": "2026-10-20T23:20:25.000Z"
+    },
+    {
+      "title": "OpenCode 遭大規模 AI 蒸餾攻擊，用戶 API Key 恐外洩",
+      "url": "https://infosecu.technews.tw/2026/10/21/opencode-hit-by-distillation-attack-api-keys-at-risk/",
+      "source": "科技新報",
+      "publishedAt": "2026-10-20T23:10:12.000Z"
+    },
+    {
+      "title": "The Other Epidemic: Trying to get off benzodiazepines",
+      "url": "https://www.thebeliever.net/the-other-epidemic/",
       "source": "Hacker News",
-      "publishedAt": "2026-10-20T00:00:49.000Z"
+      "publishedAt": "2026-10-20T23:04:09.000Z"
     },
     {
-      "title": "Netflix 約 300 部作品用 AI，省下的製作費誰拿走？",
-      "url": "https://technews.tw/2026/10/20/netflix-uses-ai-in-300-titles-who-gets-the-savings/",
+      "title": "4,000 萬美元徵求防空無人艇，美軍要求 120 天內可部署",
+      "url": "https://technews.tw/2026/10/21/diu-intiated-new-anti-air-usv-competition/",
       "source": "科技新報",
-      "publishedAt": "2026-10-20T00:00:23.000Z"
+      "publishedAt": "2026-10-20T23:00:48.000Z"
     },
     {
-      "title": "台灣應將中國擴大技術出口限制的危機，變成拓展對外合作的轉機",
-      "url": "https://finance.technews.tw/2026/10/20/taiwan-should-transform-chinas-expanded-tech-export-restrictions-into-opportunities-for-broader-international-cooperation/",
+      "title": "2026 年衛星 IoT 供應鏈動態：融入既有通訊體系，價值向終端與服務延伸",
+      "url": "https://technews.tw/2026/10/21/2026-satellite-iot-supply-chain-dynamics-integration-existing-communication-systems-value-extension-end-devices-services/",
       "source": "科技新報",
-      "publishedAt": "2026-10-19T23:50:34.000Z"
-    },
-    {
-      "title": "AI 代打面試大翻車！YouTuber 派機器人對決「AI 面試官」，履歷造假、薪水亂談超失控",
-      "url": "https://ccc.technews.tw/2026/10/20/ai-interviewer-meets-ai-job-seeker/",
-      "source": "科技新報",
-      "publishedAt": "2026-10-19T23:40:36.000Z"
-    },
-    {
-      "title": "Token-maxxing is dead, OpenRouter's token usage plateaus",
-      "url": "https://openrouter.ai/rankings",
-      "source": "Hacker News",
-      "publishedAt": "2026-10-19T23:40:15.000Z"
-    },
-    {
-      "title": "荷蘭公司利用 AI 協助烏克蘭防空",
-      "url": "https://technews.tw/2026/10/20/intelic-uses-ai-to-help-ukraine-defend-against-drones/",
-      "source": "科技新報",
-      "publishedAt": "2026-10-19T23:20:53.000Z"
+      "publishedAt": "2026-10-20T23:00:45.000Z"
     }
   ]
 }
