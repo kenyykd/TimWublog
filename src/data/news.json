@@ -1,65 +1,65 @@
 {
-  "updatedAt": "2026-10-21T00:16:27.590Z",
+  "updatedAt": "2026-10-22T00:20:25.384Z",
   "items": [
     {
-      "title": "韓國研發 100 吋「發聲顯示器」，聲音隨畫面移動準確率達 99.9%",
-      "url": "https://technews.tw/2026/10/21/your-next-tv-could-play-sound-from-the-exact-spot-where-the-action-happens/",
+      "title": "以色列背景引發資安疑慮，馬來西亞禁止公務員使用 Waze",
+      "url": "https://infosecu.technews.tw/2026/10/22/malaysia-bans-civil-servants-from-using-mapping-app-waze-citing-links-to-israel/",
       "source": "科技新報",
-      "publishedAt": "2026-10-21T00:10:54.000Z"
+      "publishedAt": "2026-10-22T00:20:20.000Z"
     },
     {
-      "title": "免費 Adobe 對標軟體大放送，AI 會摧毀軟體業嗎？",
-      "url": "https://technews.tw/2026/10/21/ai-destroy-software-industry/",
+      "title": "OpenAI 前研究長創立 Arda 募資 2.3 億美元，以 AI 加速美國工廠產線改造",
+      "url": "https://finance.technews.tw/2026/10/22/ex-openai-exec-launches-1-5b-ai-manufacturing-startup-arda/",
       "source": "科技新報",
-      "publishedAt": "2026-10-21T00:00:15.000Z"
+      "publishedAt": "2026-10-22T00:10:33.000Z"
     },
     {
-      "title": "Claude 半小時解開 26 年密碼學謎題，揭 NIST 曲線種子來自系統時間",
-      "url": "https://technews.tw/2026/10/21/claude-solves-mystery-behind-nist-curve-seeds/",
-      "source": "科技新報",
-      "publishedAt": "2026-10-20T23:50:12.000Z"
-    },
-    {
-      "title": "Vibe Coding 改造家中智慧電視，移除廣告與臃腫軟體",
-      "url": "https://technews.tw/2026/10/21/dumbing-down-smart-tvs-to-eliminate-unnecessary-features/",
-      "source": "科技新報",
-      "publishedAt": "2026-10-20T23:44:53.000Z"
-    },
-    {
-      "title": "自駕車上路前的魔鬼考官，Laplace Intelligence 用 AI 代理打造極端情境模擬",
-      "url": "https://technews.tw/2026/10/21/laplace-intelligence-red-teams-robots-and-self-driving-cars-before-they-hit-the-real-world/",
-      "source": "科技新報",
-      "publishedAt": "2026-10-20T23:40:25.000Z"
-    },
-    {
-      "title": "免除高風險開心手術，微型機器人讓數週心臟治療縮至一天",
-      "url": "https://technews.tw/2026/10/21/millirobots-shorten-heart-procedures/",
-      "source": "科技新報",
-      "publishedAt": "2026-10-20T23:20:25.000Z"
-    },
-    {
-      "title": "OpenCode 遭大規模 AI 蒸餾攻擊，用戶 API Key 恐外洩",
-      "url": "https://infosecu.technews.tw/2026/10/21/opencode-hit-by-distillation-attack-api-keys-at-risk/",
-      "source": "科技新報",
-      "publishedAt": "2026-10-20T23:10:12.000Z"
-    },
-    {
-      "title": "The Other Epidemic: Trying to get off benzodiazepines",
-      "url": "https://www.thebeliever.net/the-other-epidemic/",
+      "title": "mitmproxy adds --emudhra option",
+      "url": "https://github.com/mitmproxy/mitmproxy/commit/169234499088fc2c414644a67efaed3d64ae2e3b",
       "source": "Hacker News",
-      "publishedAt": "2026-10-20T23:04:09.000Z"
+      "publishedAt": "2026-10-21T23:51:37.000Z"
     },
     {
-      "title": "4,000 萬美元徵求防空無人艇，美軍要求 120 天內可部署",
-      "url": "https://technews.tw/2026/10/21/diu-intiated-new-anti-air-usv-competition/",
+      "title": "AI 讓人人都能做 App，誰負責讓它活下去？",
+      "url": "https://technews.tw/2026/10/22/ai-lets-anyone-build-apps-but-who-maintains-it/",
       "source": "科技新報",
-      "publishedAt": "2026-10-20T23:00:48.000Z"
+      "publishedAt": "2026-10-21T23:50:18.000Z"
     },
     {
-      "title": "2026 年衛星 IoT 供應鏈動態：融入既有通訊體系，價值向終端與服務延伸",
-      "url": "https://technews.tw/2026/10/21/2026-satellite-iot-supply-chain-dynamics-integration-existing-communication-systems-value-extension-end-devices-services/",
+      "title": "AI 時代資安更重要！Anthropic 推出 OSS Scanner，開源專案可申請免費定期漏洞掃描",
+      "url": "https://www.inside.com.tw/article/42690-anthropic-oss-scanner-free-periodic-vulnerability-scans-open-source",
+      "source": "INSIDE",
+      "publishedAt": "2026-10-21T23:45:00.000Z"
+    },
+    {
+      "title": "電動車電池退役不等於報廢，維修、儲能與回收決定「第二池生」",
+      "url": "https://technews.tw/2026/10/22/what-happens-to-an-ev-battery-after-its-removed-from-your-car/",
       "source": "科技新報",
-      "publishedAt": "2026-10-20T23:00:45.000Z"
+      "publishedAt": "2026-10-21T23:40:20.000Z"
+    },
+    {
+      "title": "Airbnb bans making guests do dishes and take out the trash",
+      "url": "https://www.theverge.com/tech/1015844/airbnb-chores-house-rules-update",
+      "source": "Hacker News",
+      "publishedAt": "2026-10-21T23:38:32.000Z"
+    },
+    {
+      "title": "空中巴士測試女武神無人機，計畫 2029 年可服役",
+      "url": "https://technews.tw/2026/10/22/airbus-tests-valkyrie-drone-in-europe/",
+      "source": "科技新報",
+      "publishedAt": "2026-10-21T23:30:29.000Z"
+    },
+    {
+      "title": "Κ = 0.003 for integer multiplication crossed",
+      "url": "https://github.com/CrocSwap/integer-mult-bounds/pull/4441",
+      "source": "Hacker News",
+      "publishedAt": "2026-10-21T23:22:21.000Z"
+    },
+    {
+      "title": "防堵 AI 代理管帳暴走，新創 Fragment 獲 1,200 萬美元打造專屬防線",
+      "url": "https://finance.technews.tw/2026/10/22/fragment-raises-12-million-to-combat-ai-financial-abuse/",
+      "source": "科技新報",
+      "publishedAt": "2026-10-21T23:20:30.000Z"
     }
   ]
 }
