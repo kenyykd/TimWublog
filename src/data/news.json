@@ -1,65 +1,65 @@
 {
-  "updatedAt": "2026-10-22T00:20:25.384Z",
+  "updatedAt": "2026-10-23T00:16:52.355Z",
   "items": [
     {
-      "title": "以色列背景引發資安疑慮，馬來西亞禁止公務員使用 Waze",
-      "url": "https://infosecu.technews.tw/2026/10/22/malaysia-bans-civil-servants-from-using-mapping-app-waze-citing-links-to-israel/",
+      "title": "黃仁勳批 AI 毀滅人類論：搏版面的不實廉價說法",
+      "url": "https://technews.tw/2026/10/23/nvidia-boss-criticises-cheap-ai-doomsday-warnings/",
       "source": "科技新報",
-      "publishedAt": "2026-10-22T00:20:20.000Z"
+      "publishedAt": "2026-10-23T00:15:53.000Z"
     },
     {
-      "title": "OpenAI 前研究長創立 Arda 募資 2.3 億美元，以 AI 加速美國工廠產線改造",
-      "url": "https://finance.technews.tw/2026/10/22/ex-openai-exec-launches-1-5b-ai-manufacturing-startup-arda/",
+      "title": "台灣網友自製〈Fab24hr〉晶圓廠模擬器暴紅，高壓日常連外媒都驚呼：恐怖遊戲",
+      "url": "https://ccc.technews.tw/2026/10/23/taiwan-wafer-fab-simulation-game-goes-viral/",
       "source": "科技新報",
-      "publishedAt": "2026-10-22T00:10:33.000Z"
+      "publishedAt": "2026-10-23T00:10:19.000Z"
     },
     {
-      "title": "mitmproxy adds --emudhra option",
-      "url": "https://github.com/mitmproxy/mitmproxy/commit/169234499088fc2c414644a67efaed3d64ae2e3b",
+      "title": "膝關節退化有機會真正修復？科學家找到軟骨再生的新契機",
+      "url": "https://technews.tw/2026/10/23/stanford-scientists-found-a-way-to-regrow-cartilage-and-stop-arthritis/",
+      "source": "科技新報",
+      "publishedAt": "2026-10-23T00:00:14.000Z"
+    },
+    {
+      "title": "Mapping the Northern Sky",
+      "url": "https://www.maps.com/star-map-charts-stars-and-constellations-of-northern-hemisphere/",
       "source": "Hacker News",
-      "publishedAt": "2026-10-21T23:51:37.000Z"
+      "publishedAt": "2026-10-22T23:56:39.000Z"
     },
     {
-      "title": "AI 讓人人都能做 App，誰負責讓它活下去？",
-      "url": "https://technews.tw/2026/10/22/ai-lets-anyone-build-apps-but-who-maintains-it/",
+      "title": "公平會禁止 Grab 與 foodpanda 結合案，宣示政府維護市場競爭的決心",
+      "url": "https://finance.technews.tw/2026/10/23/ftc-blocks-grab-foodpanda-merger-demonstrating-government-resolve-maintain-market-competition/",
       "source": "科技新報",
-      "publishedAt": "2026-10-21T23:50:18.000Z"
+      "publishedAt": "2026-10-22T23:50:08.000Z"
     },
     {
-      "title": "AI 時代資安更重要！Anthropic 推出 OSS Scanner，開源專案可申請免費定期漏洞掃描",
-      "url": "https://www.inside.com.tw/article/42690-anthropic-oss-scanner-free-periodic-vulnerability-scans-open-source",
-      "source": "INSIDE",
-      "publishedAt": "2026-10-21T23:45:00.000Z"
-    },
-    {
-      "title": "電動車電池退役不等於報廢，維修、儲能與回收決定「第二池生」",
-      "url": "https://technews.tw/2026/10/22/what-happens-to-an-ev-battery-after-its-removed-from-your-car/",
-      "source": "科技新報",
-      "publishedAt": "2026-10-21T23:40:20.000Z"
-    },
-    {
-      "title": "Airbnb bans making guests do dishes and take out the trash",
-      "url": "https://www.theverge.com/tech/1015844/airbnb-chores-house-rules-update",
+      "title": "Docker Is Weird",
+      "url": "https://codeandcake.dev/posts/2026-10-22-docker-is-weird",
       "source": "Hacker News",
-      "publishedAt": "2026-10-21T23:38:32.000Z"
+      "publishedAt": "2026-10-22T23:45:56.000Z"
     },
     {
-      "title": "空中巴士測試女武神無人機，計畫 2029 年可服役",
-      "url": "https://technews.tw/2026/10/22/airbus-tests-valkyrie-drone-in-europe/",
-      "source": "科技新報",
-      "publishedAt": "2026-10-21T23:30:29.000Z"
-    },
-    {
-      "title": "Κ = 0.003 for integer multiplication crossed",
-      "url": "https://github.com/CrocSwap/integer-mult-bounds/pull/4441",
+      "title": "AI compute is the new oil–and needs a new market",
+      "url": "https://www.economist.com/finance-and-economics/2026/10/22/ai-compute-is-the-new-oil-and-needs-a-new-market",
       "source": "Hacker News",
-      "publishedAt": "2026-10-21T23:22:21.000Z"
+      "publishedAt": "2026-10-22T23:45:16.000Z"
     },
     {
-      "title": "防堵 AI 代理管帳暴走，新創 Fragment 獲 1,200 萬美元打造專屬防線",
-      "url": "https://finance.technews.tw/2026/10/22/fragment-raises-12-million-to-combat-ai-financial-abuse/",
+      "title": "輝達前團隊打造新創 Dream Labs 獲 9,000 萬美元融資，推出通用機器人 API",
+      "url": "https://technews.tw/2026/10/23/robot-brain-api-debuts/",
       "source": "科技新報",
-      "publishedAt": "2026-10-21T23:20:30.000Z"
+      "publishedAt": "2026-10-22T23:40:02.000Z"
+    },
+    {
+      "title": "科技廠台中搶地，豪砸 130 億，大立光連買七座廠房最受注目",
+      "url": "https://finance.technews.tw/2026/10/23/tech-firms-rush-to-snap-up-land-in-taichung/",
+      "source": "科技新報",
+      "publishedAt": "2026-10-22T23:30:32.000Z"
+    },
+    {
+      "title": "SK 海力士取消 Solidigm 美國 IPO 計畫，股東反對與監管疑慮成關鍵",
+      "url": "https://technews.tw/2026/10/23/sk-hynix-cancel-solidigm-us-ipo-shareholder-opposition-regulatory-concerns/",
+      "source": "科技新報",
+      "publishedAt": "2026-10-22T23:30:12.000Z"
     }
   ]
 }
