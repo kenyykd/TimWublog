@@ -28,14 +28,15 @@ import { computed, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 import MarkdownIt from 'markdown-it'
 import { useI18n } from 'vue-i18n'
+import type { Locale } from '@/i18n'
 import { findPost } from '@/posts'
 import { setPageTitle } from '@/router'
 
 const md = new MarkdownIt({ html: false, linkify: true })
 
 const route = useRoute()
-const { t } = useI18n()
-const post = computed(() => findPost(String(route.params.slug)))
+const { t, locale } = useI18n()
+const post = computed(() => findPost(String(route.params.slug), locale.value as Locale))
 const html = computed(() => (post.value ? md.render(post.value.content) : ''))
 
 watchEffect(() => setPageTitle(post.value?.title ?? t('post.notFoundPageTitle')))

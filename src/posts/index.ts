@@ -1,5 +1,8 @@
+import type { Locale } from '@/i18n'
+
 // 文章放在 src/posts/*.md，檔名即網址（/blog/<檔名>）
 // 檔案開頭用 --- 包住的 frontmatter 寫 title、date、category、description、cover（選填）
+// 日文版另存為 <檔名>.ja.md，共用同一個網址；沒有日文版的文章在日文模式顯示中文
 
 export interface Post {
   slug: string
@@ -13,8 +16,7 @@ export interface Post {
 
 const files = import.meta.glob<string>('./*.md', { query: '?raw', import: 'default', eager: true })
 
-function parsePost(path: string, raw: string): Post {
-  const slug = path.replace(/^\.\//, '').replace(/\.md$/, '')
+function parsePost(slug: string, raw: string): Post {
   const match = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/)
   const meta: Record<string, string> = {}
 
@@ -37,11 +39,31 @@ function parsePost(path: string, raw: string): Post {
   }
 }
 
-// 新的在前
-export const posts: Post[] = Object.entries(files)
-  .map(([path, raw]) => parsePost(path, raw))
-  .sort((a, b) => b.date.localeCompare(a.date))
+const zhPosts = new Map<string, Post>()
+const jaPosts = new Map<string, Post>()
 
-export function findPost(slug: string): Post | undefined {
-  return posts.find((post) => post.slug === slug)
+for (const [path, raw] of Object.entries(files)) {
+  const name = path.replace(/^\.\//, '').replace(/\.md$/, '')
+  if (name.endsWith('.ja')) {
+    const slug = name.slice(0, -'.ja'.length)
+    jaPosts.set(slug, parsePost(slug, raw))
+  } else {
+    zhPosts.set(name, parsePost(name, raw))
+  }
+}
+
+function localize(post: Post, locale: Locale): Post {
+  return (locale === 'ja' && jaPosts.get(post.slug)) || post
+}
+
+// 以中文版為準列出文章（只有日文版的檔案不會出現），新的在前
+const sortedPosts = [...zhPosts.values()].sort((a, b) => b.date.localeCompare(a.date))
+
+export function getPosts(locale: Locale): Post[] {
+  return sortedPosts.map((post) => localize(post, locale))
+}
+
+export function findPost(slug: string, locale: Locale): Post | undefined {
+  const post = zhPosts.get(slug)
+  return post && localize(post, locale)
 }

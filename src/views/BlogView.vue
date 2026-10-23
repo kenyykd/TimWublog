@@ -42,7 +42,13 @@
 </template>
 
 <script setup lang="ts">
-import { posts } from '@/posts'
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+import type { Locale } from '@/i18n'
+import { getPosts } from '@/posts'
+
+const { locale } = useI18n()
+const posts = computed(() => getPosts(locale.value as Locale))
 </script>
 
 <style scoped>
