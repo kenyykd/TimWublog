@@ -39,6 +39,12 @@ export default {
     updated: '每天更新 · 最後更新',
   },
   projects: {
+    status: {
+      inProgress: '進行中',
+    },
+    saas: {
+      description: '給營造與裝修業的工地日報、缺失追蹤系統',
+    },
     instagram: {
       description: '使用純html和css實現的instagram登入頁面',
     },

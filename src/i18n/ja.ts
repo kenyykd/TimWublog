@@ -41,6 +41,12 @@ const ja: typeof zhHant = {
     updated: '毎日更新 · 最終更新',
   },
   projects: {
+    status: {
+      inProgress: '開発中',
+    },
+    saas: {
+      description: '建設・内装業向けの工事日報と不具合管理システム',
+    },
     instagram: {
       description: 'HTML と CSS だけで再現した Instagram のログインページ',
     },

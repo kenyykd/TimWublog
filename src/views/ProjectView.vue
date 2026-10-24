@@ -24,6 +24,9 @@
                   <h3 class="card-title">
                     {{ project.nameKey ? t(project.nameKey) : project.name }}
                   </h3>
+                  <span v-if="project.statusKey" class="status-badge">
+                    {{ t(project.statusKey) }}
+                  </span>
                 </div>
                 <p class="card-description">{{ t(project.descriptionKey) }}</p>
                 <div class="project-tech">
@@ -51,6 +54,8 @@ interface Project {
   // 有中日文差異的名稱與描述用 i18n key
   nameKey?: string
   descriptionKey: string
+  // 開發中等狀態標籤（i18n key）
+  statusKey?: string
   technologies: string[]
   url?: string
   githubUrl?: string
@@ -58,6 +63,15 @@ interface Project {
 
 // Featured Projects Data
 const featuredProjects: Project[] = [
+  {
+    id: 6,
+    name: 'SaaS Admin Console',
+    descriptionKey: 'projects.saas.description',
+    statusKey: 'projects.status.inProgress',
+    technologies: ['Next.js', 'Supabase', 'Tailwind CSS'],
+    // 私有 repo，只連到部署網址
+    url: 'https://saas-admin-console.vercel.app',
+  },
   {
     id: 1,
     name: 'instagram-login-clone',
@@ -221,7 +235,8 @@ const featuredProjects: Project[] = [
 
 .card-header {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.5rem;
   align-items: center;
   margin-bottom: 1rem;
   margin-top: -10px;
@@ -233,7 +248,21 @@ const featuredProjects: Project[] = [
   margin: 0;
   color: rgba(255, 255, 255, 0.9);
   line-height: 1.3;
-  flex: 1;
+  flex: 0 1 auto;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 0.1rem 0.45rem;
+  background: rgba(29, 185, 84, 0.12);
+  color: #1db954;
+  border: 1px solid rgba(29, 185, 84, 0.35);
+  border-radius: 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+  line-height: 1.4;
+  vertical-align: middle;
+  white-space: nowrap;
 }
 
 .card-description {
